@@ -1,27 +1,52 @@
- <main>
-  Personal best:
-  <!-- PB -->
-  WPM WPM:
-  <!-- WPM -->
-  Accuracy:
-  <!-- Accuracy -->
-  Time:
-  <!-- Time -->
+<main>
+  <dl class="md:flex md:justify-between">
+    <!-- WPM -->
+    <div>
+      <dt>WPM:</dt>
+      <dd>0</dd>
+    </div>
 
-  Difficulty: Easy Medium Hard Mode: Timed (60s) Passage
+    <!-- Accuracy -->
+    <div>
+      <dt>Accuracy:</dt>
+      <dd>0%</dd>
+    </div>
 
-  <!-- Passage -->
+    <!-- Time -->
+    <div>
+      <dt>Time:</dt>
+      <dd>00:00</dd>
+    </div>
+  </dl>
 
-  Start Typing Test Or click the text and start typing
+  <form class="md:flex md:justify-between mb-8" #settingsForm="ngForm">
+    <fieldset class="md:flex md:justify-between">
+      <legend>Difficulty:</legend>
 
-  <!-- Test Complete Start -->
+      <label for="easy">Easy</label>
+      <input type="radio" name="difficulty" id="easy" [(ngModel)]="difficulty" value="easy" />
 
-  Test Complete! Solid run. Keep pushing to beat your high score. WPM:
-  <!-- WPM -->
-  Accuracy:
-  <!-- Accuracy -->
-  Characters:
-  <!-- Correct/Incorrect -->
+      <label for="medium">Medium</label>
+      <input type="radio" name="difficulty" id="medium" [(ngModel)]="difficulty" value="medium" />
 
-  Go Again Test Complete End
+      <label for="hard">Hard</label>
+      <input type="radio" name="difficulty" id="hard" [(ngModel)]="difficulty" value="hard" />
+    </fieldset>
+
+    <fieldset>
+      <legend>Mode:</legend>
+
+      <label for="timed">Timed (60s)</label>
+      <input type="radio" name="mode" id="timed" [(ngModel)]="mode" value="timed" />
+
+      <label for="passage">Medium</label>
+      <input type="radio" name="mode" id="passage" [(ngModel)]="mode" value="passage" />
+    </fieldset>
+  </form>
+
+  <div>
+    @for(char of testText$ | async; track $index; let i = $index) {
+      <span class="" [class.bg-red-500]="(cursorPosition$ | async) === i">{{ char }}</span>
+    }
+  </div>
 </main>

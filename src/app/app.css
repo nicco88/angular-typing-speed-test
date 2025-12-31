@@ -1,0 +1,4 @@
+:host {
+  min-height: calc(100vh - 1.5rem);
+  display: block;
+}
