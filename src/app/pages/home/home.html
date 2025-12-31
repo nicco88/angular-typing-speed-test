@@ -15,7 +15,7 @@
     <!-- Time -->
     <div>
       <dt>Time:</dt>
-      <dd>00:00</dd>
+      <dd>{{ time$ | async }}</dd>
     </div>
   </dl>
 
@@ -37,16 +37,45 @@
       <legend>Mode:</legend>
 
       <label for="timed">Timed (60s)</label>
-      <input type="radio" name="mode" id="timed" [(ngModel)]="mode" value="timed" />
+      <input type="radio" name="mode" id="timed" [(ngModel)]="mode" value="TIMED" />
 
-      <label for="passage">Medium</label>
-      <input type="radio" name="mode" id="passage" [(ngModel)]="mode" value="passage" />
+      <label for="passage">Passage</label>
+      <input type="radio" name="mode" id="passage" [(ngModel)]="mode" value="PASSAGE" />
     </fieldset>
   </form>
 
-  <div>
-    @for(char of testText$ | async; track $index; let i = $index) {
-      <span class="" [class.bg-red-500]="(cursorPosition$ | async) === i">{{ char }}</span>
-    }
+  <div class="relative min-h-80">
+    <div>
+      @for(char of testText$ | async; track $index; let i = $index) {
+      <span
+        [class]="{
+          'text-gray-800': char.state === 'PENDING',
+          'text-green-500': char.state === 'CORRECT',
+          'text-red-500': char.state === 'INCORRECT'
+        }"
+        [class.bg-red-500]="(cursorPosition$ | async) === i"
+        >{{ char.value }}</span
+      >
+      }
+    </div>
+
+    <div
+      [class.grid]="!(testStarted$ | async)"
+      [class.hidden]="testStarted$ | async"
+      class="absolute inset-0 w-full grid place-items-center backdrop-blur-xs cursor-pointer bg-amber-300/30"
+    >
+      <div class="text-center">
+        <button class="cursor-pointer" (click)="onStartChallenge()">Start Typing Test</button>
+        <p>Or click the text and start typing</p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    [class.block]="testStarted$ | async"
+    [class.hidden]="!(testStarted$ | async)"
+    class="text-center"
+  >
+    <button class="cursor-pointer" (click)="onRestartChallenge()">Restart Test</button>
   </div>
 </main>
