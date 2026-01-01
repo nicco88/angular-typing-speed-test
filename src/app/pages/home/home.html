@@ -62,10 +62,10 @@
     <div
       [class.grid]="!(testStarted$ | async)"
       [class.hidden]="testStarted$ | async"
-      class="absolute inset-0 w-full grid place-items-center backdrop-blur-xs cursor-pointer bg-amber-300/30"
+      class="absolute inset-0 w-full grid place-items-center backdrop-blur-xs bg-amber-300/30"
     >
       <div class="text-center">
-        <button class="cursor-pointer" (click)="onStartChallenge()">Start Typing Test</button>
+        <button class="start-button cursor-pointer" (click)="onStartChallenge()">Start Typing Test</button>
         <p>Or click the text and start typing</p>
       </div>
     </div>

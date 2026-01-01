@@ -26,6 +26,7 @@ export class Home implements AfterViewInit, OnDestroy {
   readonly #MIN_CHAR_CODE = 33;
   readonly #MAX_CHAR_CODE = 126;
   readonly #COUNTDOWN_START_AT = 60;
+  #randomTextIndex = 0;
 
   readonly onDestroy$ = new Subject<void>();
   readonly testText$ = new BehaviorSubject<CharStateI[]>([]);
@@ -74,7 +75,8 @@ export class Home implements AfterViewInit, OnDestroy {
   }
 
   onRestartChallenge(): void {
-    this.testText$.next(this.#getCharsState(data[this.difficulty][0].text));
+    this.#randomTextIndex = this.#getRandomIndex(data[this.difficulty].length);
+    this.testText$.next(this.#getCharsState(data[this.difficulty][this.#randomTextIndex].text));
     this.cursorPosition$.next(0);
     this.testStarted$.next(false);
   }
@@ -85,7 +87,7 @@ export class Home implements AfterViewInit, OnDestroy {
         .pipe(
           filter(({ difficulty, mode }) => difficulty && mode),
           distinctUntilChanged((prev, curr) => prev.difficulty === curr.difficulty && prev.mode === curr.mode),
-          tap(this.#handleSettingsFormValueChanges),
+          tap(this.#handleSettingsFormValueChangesEffect),
           takeUntil(this.onDestroy$))
         .subscribe();
     }
@@ -95,15 +97,15 @@ export class Home implements AfterViewInit, OnDestroy {
     fromEvent<KeyboardEvent>(document, "keydown")
       .pipe(
         filter(this.#isCharAllowed),
-        withLatestFrom(this.cursorPosition$, this.testText$),
+        withLatestFrom(this.cursorPosition$, this.testText$, this.testStarted$),
         tap(this.#handleKeyboardEffect),
         takeUntil(this.onDestroy$),
       )
       .subscribe()
   }
 
-  #handleSettingsFormValueChanges({ difficulty, mode }: { difficulty: Difficulty, mode: Mode }): void {
-    const charsState: CharStateI[] = this.#getCharsState(data[difficulty][0].text);
+  #handleSettingsFormValueChangesEffect = ({ difficulty, mode }: { difficulty: Difficulty, mode: Mode }): void => {
+    const charsState: CharStateI[] = this.#getCharsState(data[difficulty][this.#randomTextIndex].text);
 
     this.testText$.next(charsState);
     this.cursorPosition$.next(0);
@@ -111,7 +113,7 @@ export class Home implements AfterViewInit, OnDestroy {
     this.onRestartChallenge();
   }
 
-  #isCharAllowed({ code, key }: KeyboardEvent): boolean {
+  #isCharAllowed = ({ code, key }: KeyboardEvent): boolean => {
     const charCode = key.charCodeAt(0);
     const isBackspace = code === "Backspace";
     const isSpace = code === "Space";
@@ -120,24 +122,27 @@ export class Home implements AfterViewInit, OnDestroy {
     return (key.length === 1 || isBackspace) && codeIsAllowed;
   }
 
-  #handleKeyboardEffect([event, cursorPosition, testText]: [KeyboardEvent, number, CharStateI[]]): void {
+  #handleKeyboardEffect = ([event, cursorPosition, testText, testStarted]: [KeyboardEvent, number, CharStateI[], boolean]): void => {
     const isBackspace = event.code === "Backspace";
 
-    if (event.key === testText[cursorPosition].value) {
-      testText[cursorPosition].state = "CORRECT";
-    } else if (isBackspace) {
-      // this.testText$.next()
+    if (testStarted) {
+      if (event.key === testText[cursorPosition].value) {
+        testText[cursorPosition].state = "CORRECT";
+      } else if (isBackspace) {
+        // TODO: HANDLE BACKSPACE
+        // this.testText$.next()
+      } else {
+        testText[cursorPosition].state = "INCORRECT";
+      }
+
+      if (cursorPosition >= testText.length - 1) return;
+      if (isBackspace) return this.cursorPosition$.next(Math.max(cursorPosition - 1, 0));
+
+      this.cursorPosition$.next(cursorPosition + 1);
+      this.testText$.next(testText);
     } else {
-      testText[cursorPosition].state = "INCORRECT";
+      this.onStartChallenge();
     }
-
-    if (cursorPosition >= testText.length - 1) {
-      return
-    };
-    if (isBackspace) return this.cursorPosition$.next(Math.max(cursorPosition - 1, 0));
-
-    this.cursorPosition$.next(cursorPosition + 1);
-    this.testText$.next(testText);
   }
 
   #getCharsState(text: string): CharStateI[] {
@@ -149,5 +154,9 @@ export class Home implements AfterViewInit, OnDestroy {
     const remainingSeconds = seconds % 60;
 
     return `${remainingMinutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  }
+
+  #getRandomIndex(max: number) {
+    return Math.floor(Math.random() * max);
   }
 }
