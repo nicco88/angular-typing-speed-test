@@ -15,4 +15,5 @@ export class Result {
 
   wpm = toSignal(this.#typingSpeedService.getWpm$());
   accuracy = toSignal(this.#typingSpeedService.accuracy$);
+  rightVsWrongChars = toSignal(this.#typingSpeedService.rightVsWrongChars$);
 }

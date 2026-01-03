@@ -4,6 +4,9 @@
 
   <dt>Accuracy:</dt>
   <dd>{{ accuracy() }}%</dd>
+
+  <dt>Characters:</dt>
+  <dd>{{ rightVsWrongChars()?.correctChars }} / {{ rightVsWrongChars()?.wrongChars }}</dd>
 </dl>
 
 <a [routerLink]="'/'">Go Again</a>

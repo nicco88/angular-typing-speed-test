@@ -1,6 +1,6 @@
 import { effect, inject, Injectable, signal } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, distinctUntilChanged, iif, map, of, scan, share, switchMap, takeWhile, tap, timer, withLatestFrom } from "rxjs";
+import { BehaviorSubject, distinctUntilChanged, filter, iif, map, of, scan, share, startWith, switchMap, takeLast, takeWhile, tap, timer, withLatestFrom } from "rxjs";
 import { COUNTDOWN_START_AT, MAX_CHAR_CODE, MIN_CHAR_CODE, TYPING_SPEED_PERSONAL_BEST_WPM_KEY } from "../constants/typing-speed.constants";
 import { CharState, Mode } from "../models/typing-speed.models";
 
@@ -24,6 +24,17 @@ export class TypingSpeedService {
     JSON.parse(localStorage.getItem(TYPING_SPEED_PERSONAL_BEST_WPM_KEY) || "null")
     || 0,
   );
+
+  readonly rightVsWrongChars$ = this.#testText$.pipe(
+    filter(testText => testText.length > 0),
+    map(testText => {
+      const wrongChars = this.#getWrongCharsCount(testText);
+      const correctChars = testText.length - wrongChars;
+
+      return { correctChars, wrongChars };
+    }),
+    startWith({ correctChars: 0, wrongChars: 0 })
+  )
 
   readonly countdown$ = this.#testStarted$.pipe(
     distinctUntilChanged(),
