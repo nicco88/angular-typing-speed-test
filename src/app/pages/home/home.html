@@ -3,19 +3,19 @@
     <!-- WPM -->
     <div>
       <dt>WPM:</dt>
-      <dd>{{ wpm$ | async }}</dd>
+      <dd>{{ wpm() }}</dd>
     </div>
 
     <!-- Accuracy -->
     <div>
       <dt>Accuracy:</dt>
-      <dd>{{accuracy$ | async}}%</dd>
+      <dd>{{ accuracy() }}%</dd>
     </div>
 
     <!-- Time -->
     <div>
       <dt>Time:</dt>
-      <dd>{{ time$ | async }}</dd>
+      <dd>{{ time() }}</dd>
     </div>
   </dl>
 
@@ -65,7 +65,9 @@
       class="absolute inset-0 w-full grid place-items-center backdrop-blur-xs bg-amber-300/30"
     >
       <div class="text-center">
-        <button class="start-button cursor-pointer" (click)="onStartChallenge()">Start Typing Test</button>
+        <button class="start-button cursor-pointer" (click)="onStartChallenge()">
+          Start Typing Test
+        </button>
         <p>Or click the text and start typing</p>
       </div>
     </div>
