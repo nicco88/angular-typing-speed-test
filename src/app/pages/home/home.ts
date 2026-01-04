@@ -3,11 +3,12 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnDestroy, V
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject, distinctUntilChanged, filter, fromEvent, iif, map, of, scan, Subject, switchMap, takeUntil, takeWhile, tap, timer, withLatestFrom } from "rxjs";
+import { BehaviorSubject, distinctUntilChanged, filter, fromEvent, Subject, takeUntil, tap, withLatestFrom } from "rxjs";
 import { CharState, Difficulty, Mode } from '../../models/typing-speed.models';
 import { TypingSpeedService } from '../../services/typing-speed.service';
-import data from "./../../data.json";
 import { UtilsService } from '../../services/utils.service';
+import data from "./../../data.json";
+import { difficultyOptions, modeOptions } from './home.config';
 
 @Component({
   selector: 'tst-home',
@@ -20,6 +21,9 @@ export class Home implements AfterViewInit, OnDestroy {
   #router: Router = inject(Router);
   #typingSpeedService: TypingSpeedService = inject(TypingSpeedService);
   #utils: UtilsService = inject(UtilsService);
+
+  difficultyOptions = difficultyOptions;
+  modeOptions = modeOptions;
 
   @ViewChild("settingsForm") settingsForm?: NgForm;
 

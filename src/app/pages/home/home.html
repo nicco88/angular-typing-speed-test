@@ -23,24 +23,45 @@
     <fieldset class="md:flex md:justify-between">
       <legend>Difficulty:</legend>
 
-      <label for="easy">Easy</label>
-      <input type="radio" name="difficulty" id="easy" [(ngModel)]="difficulty" value="easy" />
-
-      <label for="medium">Medium</label>
-      <input type="radio" name="difficulty" id="medium" [(ngModel)]="difficulty" value="medium" />
-
-      <label for="hard">Hard</label>
-      <input type="radio" name="difficulty" id="hard" [(ngModel)]="difficulty" value="hard" />
+      <div class="flex gap-x-1.5">
+        @for(option of difficultyOptions; track option.id) {
+        <div>
+          <label [attr.for]="option.id" [class.bg-green-500]="difficulty === option.value">{{
+            option.label
+          }}</label>
+          <input
+            type="radio"
+            name="difficulty"
+            [attr.id]="option.id"
+            [(ngModel)]="difficulty"
+            [value]="option.value"
+            class="sr-only"
+          />
+        </div>
+        }
+      </div>
     </fieldset>
 
     <fieldset>
       <legend>Mode:</legend>
 
-      <label for="timed">Timed (60s)</label>
-      <input type="radio" name="mode" id="timed" [(ngModel)]="mode" value="TIMED" />
-
-      <label for="passage">Passage</label>
-      <input type="radio" name="mode" id="passage" [(ngModel)]="mode" value="PASSAGE" />
+      <div class="flex gap-x-1.5">
+        @for(option of modeOptions; track option.id) {
+        <div>
+          <label [attr.for]="option.id" [class.bg-green-500]="mode === option.value">{{
+            option.label
+          }}</label>
+          <input
+            type="radio"
+            name="mode"
+            [attr.id]="option.id"
+            [(ngModel)]="mode"
+            [value]="option.value"
+            class="sr-only"
+          />
+        </div>
+        }
+      </div>
     </fieldset>
   </form>
 

@@ -1,12 +1,27 @@
+<h1>
+  {{ isPersonalBest() ? 'High Score Smashed!' : 'Test Complete!' }}
+</h1>
+
+<h2>
+  {{
+    isPersonalBest()
+      ? 'You’re getting faster. That was incredible typing.'
+      : 'Solid run. Keep pushing to beat your high score.'
+  }}
+</h2>
+
 <dl>
   <dt>WPM:</dt>
   <dd>{{ wpm() }}</dd>
 
   <dt>Accuracy:</dt>
-  <dd>{{ accuracy() }}%</dd>
+  <dd [class.text-green-500]="isPersonalBest()">{{ accuracy() }}%</dd>
 
   <dt>Characters:</dt>
-  <dd>{{ rightVsWrongChars()?.correctChars }} / {{ rightVsWrongChars()?.wrongChars }}</dd>
+  <dd>
+    <span class="text-green-500">{{ rightVsWrongChars()?.correctChars }}</span> /
+    <span class="text-red-500">{{ rightVsWrongChars()?.wrongChars }}</span>
+  </dd>
 </dl>
 
-<a [routerLink]="'/'">Go Again</a>
+<a [routerLink]="'/'">{{isPersonalBest() ? "Beat This Score" : "Go Again"}}</a>
