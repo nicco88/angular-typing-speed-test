@@ -102,7 +102,7 @@ export class Home implements AfterViewInit, OnDestroy {
   #handleKeyboardEffect = ([event, cursorPosition, testText, testStarted]: [KeyboardEvent, number, CharState[], boolean]): void => {
     const isBackspace = event.code === "Backspace";
 
-    if (testStarted) {
+    if (testStarted && testText[cursorPosition]) {
       const keyIsCorrect = testText[cursorPosition].value === event.key;
 
       testText[cursorPosition].state = keyIsCorrect ? "CORRECT" : "INCORRECT";
@@ -112,9 +112,9 @@ export class Home implements AfterViewInit, OnDestroy {
       }
 
       if (cursorPosition >= testText.length - 1) {
-        this.#typingSpeedService.shouldUpdatePersonalBest(this.wpm());
+        const isPersonalBest = this.#typingSpeedService.shouldUpdatePersonalBest(this.wpm());
 
-        this.#router.navigateByUrl("/result");
+        this.#router.navigateByUrl("/result", { state: { isPersonalBest, finished: true } });
       };
       if (isBackspace) return this.cursorPosition$.next(Math.max(cursorPosition - 1, 0));
 

@@ -46,9 +46,9 @@ export class TypingSpeedService {
         withLatestFrom(this.#wpm$),
         tap(([countdown, wpm]) => {
           if (countdown === 0) {
-            this.shouldUpdatePersonalBest(wpm);
+            const isPersonalBest = this.shouldUpdatePersonalBest(wpm);
 
-            this.#router.navigateByUrl("/result");
+            this.#router.navigateByUrl("/result", { state: { isPersonalBest, finished: true } });
           }
         }),
         map(([countdown]) => countdown)
@@ -159,8 +159,8 @@ export class TypingSpeedService {
     return this.#testStarted$.asObservable();
   }
 
-  shouldUpdatePersonalBest(wpm: number | undefined) {
-    if (wpm == null) return;
+  shouldUpdatePersonalBest(wpm: number | undefined): boolean {
+    if (wpm == null) return false;
 
     const personalBest = this.personalBest();
     const isFirstTime = personalBest == null && wpm > 0;
@@ -168,7 +168,11 @@ export class TypingSpeedService {
 
     if (isFirstTime || isNewPersonalBest) {
       this.personalBest.set(wpm);
+
+      return true;
     }
+
+    return false;
   }
 
   #getWrongCharsCount(testText: CharState[]): number {

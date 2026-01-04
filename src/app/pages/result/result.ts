@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TypingSpeedService } from '../../services/typing-speed.service';
 
 @Component({
@@ -10,10 +10,30 @@ import { TypingSpeedService } from '../../services/typing-speed.service';
   styleUrl: './result.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Result {
+export class Result implements OnInit {
   #typingSpeedService: TypingSpeedService = inject(TypingSpeedService);
+  #router: Router = inject(Router);
 
   wpm = toSignal(this.#typingSpeedService.getWpm$());
   accuracy = toSignal(this.#typingSpeedService.accuracy$);
   rightVsWrongChars = toSignal(this.#typingSpeedService.rightVsWrongChars$);
+  isPersonalBest = signal(false);
+
+  constructor() {
+    const currentNavigation = this.#router.currentNavigation();
+
+    if (currentNavigation?.extras.state) {
+      const { isPersonalBest } = currentNavigation.extras.state as { isPersonalBest: boolean };
+
+      if (isPersonalBest) this.isPersonalBest.set(true);
+    }
+
+  }
+
+  ngOnInit(): void {
+    if (this.wpm() === 0 && this.accuracy() === 0) {
+      this.#router.navigateByUrl("/");
+    }
+  }
+
 }
