@@ -1,69 +1,78 @@
 <main>
-  <dl class="md:flex md:justify-between">
-    <!-- WPM -->
-    <div>
-      <dt>WPM:</dt>
-      <dd>{{ wpm() }}</dd>
-    </div>
+  <div class="flex flex-col lg:flex-row md:gap-x-20">
+    <dl class="flex max-w-121.25 mb-4 md:gap-x-4 md:mb-5 lg:mb-0">
+      <!-- WPM -->
+      <tst-metrics-data dataTitle="WPM" dataValue="{{ wpm() }}" />
 
-    <!-- Accuracy -->
-    <div>
-      <dt>Accuracy:</dt>
-      <dd>{{ accuracy() }}%</dd>
-    </div>
+      <div class="w-px bg-neutral-400 h-6" aria-hidden="true"></div>
 
-    <!-- Time -->
-    <div>
-      <dt>Time:</dt>
-      <dd>{{ time() }}</dd>
-    </div>
-  </dl>
+      <!-- Accuracy -->
+      <tst-metrics-data dataTitle="Accuracy" dataValue="{{ accuracy() }}%" />
 
-  <form class="md:flex md:justify-between mb-8" #settingsForm="ngForm">
-    <fieldset class="md:flex md:justify-between">
-      <legend>Difficulty:</legend>
+      <div class="w-px bg-neutral-400 h-6" aria-hidden="true"></div>
 
-      <div class="flex gap-x-1.5">
-        @for(option of difficultyOptions; track option.id) {
-        <div>
-          <label [attr.for]="option.id" [class.bg-green-500]="difficulty === option.value">{{
-            option.label
-          }}</label>
-          <input
-            type="radio"
-            name="difficulty"
-            [attr.id]="option.id"
-            [(ngModel)]="difficulty"
-            [value]="option.value"
-            class="sr-only"
-          />
+      <!-- Time -->
+      <tst-metrics-data dataTitle="Time" dataValue="{{ time() }}" />
+    </dl>
+
+    <form class="md:flex gap-x-4 mb-8" #settingsForm="ngForm">
+      <fieldset>
+        <div class="flex items-center gap-x-2">
+          <legend class="text-neutral-400">Difficulty:</legend>
+
+          <div class="flex gap-x-1.5">
+            @for(option of difficultyOptions; track option.id) {
+            <div>
+              <label
+                data-tstSettingsOption
+                [active]="difficulty === option.value"
+                [attr.for]="option.id"
+                >{{ option.label }}</label
+              >
+              <input
+                type="radio"
+                name="difficulty"
+                [attr.id]="option.id"
+                [(ngModel)]="difficulty"
+                [value]="option.value"
+                class="sr-only"
+              />
+            </div>
+            }
+          </div>
         </div>
-        }
-      </div>
-    </fieldset>
+      </fieldset>
 
-    <fieldset>
-      <legend>Mode:</legend>
+      <div class="w-px bg-neutral-400" aria-hidden="true"></div>
 
-      <div class="flex gap-x-1.5">
-        @for(option of modeOptions; track option.id) {
-        <div>
-          <label [attr.for]="option.id" [class.bg-green-500]="mode === option.value">{{
-            option.label
-          }}</label>
-          <input
-            type="radio"
-            name="mode"
-            [attr.id]="option.id"
-            [(ngModel)]="mode"
-            [value]="option.value"
-            class="sr-only"
-          />
+      <fieldset>
+        <div class="flex items-center gap-x-2">
+          <legend class="text-neutral-400">Mode:</legend>
+
+          <div class="flex gap-x-1.5">
+            @for(option of modeOptions; track option.id) {
+            <div>
+              <label
+                data-tstSettingsOption
+                [active]="mode === option.value"
+                [attr.for]="option.id"
+                >{{ option.label }}</label
+              >
+              <input
+                type="radio"
+                name="mode"
+                [attr.id]="option.id"
+                [(ngModel)]="mode"
+                [value]="option.value"
+                class="sr-only"
+              />
+            </div>
+            }
+          </div>
         </div>
-        }
-      </div>
-    </fieldset>
-  </form>
+      </fieldset>
+    </form>
+  </div>
 
   <div class="relative min-h-80">
     <div>

@@ -1,3 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "tailwindcss";
+@import 'tailwindcss';
+
+
+@font-face {
+  font-family: "Sora";
+  src: url('/fonts/Sora/Sora-VariableFont_wght.ttf') format('truetype-variations');
+  font-optical-sizing: auto;
+  font-weight: 400 700; /* Range of supported weights */
+}
+
+@theme {
+  /* COLORS */
+  /* BLUE */
+  --color-blue-400: hsl(210, 100%, 65%);
+  --color-blue-600: hsl(214, 100%, 55%);
+
+  /* GREEN */
+  --color-green-500: hsl(140, 63%, 57%);
+
+  /* NEUTRAL */
+  --color-neutral-0: hsl(0, 0%, 100%);
+  --color-neutral-400: hsl(240, 1%, 59%);
+  --color-neutral-500: hsl(240, 3%, 46%);
+  --color-neutral-800: hsl(0, 0%, 15%);
+  --color-neutral-900: hsl(0, 0%, 7%);
+
+  /* RED */
+  --color-red-500: hsl(354, 63%, 57%);
+
+  /* YELLOW */
+  --color-yellow-500: hsl(49, 85%, 70%);
+
+  /* BREAKPOINTS */
+  --breakpoint-sm: 375px;
+  --breakpoint-lg: 1440px;
+
+  /* FONTS */
+  --font-sora: "Sora", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+body {
+  font-family: var(--font-sora);
+  background-color: var(--color-neutral-900);
+  padding: 1rem;
+  color: var(--color-neutral-0);
+
+  @media (min-width: 375px) {
+    padding: 2rem;
+  }
+}
+

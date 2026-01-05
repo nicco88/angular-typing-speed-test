@@ -9,10 +9,12 @@ import { TypingSpeedService } from '../../services/typing-speed.service';
 import { UtilsService } from '../../services/utils.service';
 import data from "./../../data.json";
 import { difficultyOptions, modeOptions } from './home.config';
+import { MetricsData } from '../../components/metrics-data/metrics-data';
+import { SettingsOption } from '../../directives/settings-option';
 
 @Component({
   selector: 'tst-home',
-  imports: [FormsModule, AsyncPipe],
+  imports: [FormsModule, AsyncPipe, MetricsData, SettingsOption],
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

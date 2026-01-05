@@ -1,12 +1,18 @@
-<header class="flex justify-between items-center">
+<header class="flex justify-between items-center mb-8 md:mb-10 lg:mb-16">
   <div>
-    <h1>Typing Speed Test</h1>
-    <h2>Type as fast as you can in 60 seconds</h2>
+    <img class="hidden md:inline-block" src="/images/logo-large.svg" alt="" aria-hidden="true">
+    <img class="inline-block md:hidden" src="/images/logo-small.svg" alt="" aria-hidden="true">
+    <h1 class="sr-only">Typing Speed Test</h1>
+    <h2 class="sr-only">Type as fast as you can in 60 seconds</h2>
   </div>
 
-  <dl>
-    <dt>
-      Personal Best:
+  <dl class="flex gap-x-1">
+    <dt class="text-neutral-400 flex gap-x-2">
+      <img src="/images/icon-personal-best.svg" alt="" aria-hidden="true">
+      <div>
+        <span class="hidden sm:inline-block">Personal best:</span>
+        <span class="inline-block sm:hidden">Best:</span>
+      </div>
     </dt>
     <dd>
       {{ personalBest() }} WPM
