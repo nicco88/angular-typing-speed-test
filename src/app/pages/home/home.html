@@ -7,12 +7,20 @@
       <div class="w-px bg-neutral-400 h-6" aria-hidden="true"></div>
 
       <!-- Accuracy -->
-      <tst-metrics-data dataTitle="Accuracy" dataValue="{{ accuracy() }}%" />
+      <tst-metrics-data
+        dataTitle="Accuracy"
+        dataValue="{{ accuracy() }}%"
+        [dataIsRed]="accuracy() !== 100 && accuracy() !== 0"
+      />
 
       <div class="w-px bg-neutral-400 h-6" aria-hidden="true"></div>
 
       <!-- Time -->
-      <tst-metrics-data dataTitle="Time" dataValue="{{ time() }}" />
+      <tst-metrics-data
+        dataTitle="Time"
+        dataValue="{{ time() }}"
+        [dataIsYellow]="(testStarted$ | async) || undefined"
+      />
     </dl>
 
     <form class="md:flex gap-x-4 mb-8" #settingsForm="ngForm">
@@ -75,15 +83,18 @@
   </div>
 
   <div class="relative min-h-80">
-    <div>
+    <div class="text-[2rem]/[136%] sm:text-[2.5rem]/[136%]">
       @for(char of testText$ | async; track $index; let i = $index) {
       <span
+        class="rounded-sm px-px"
         [class]="{
-          'text-gray-800': char.state === 'PENDING',
+          'text-neutral-400': char.state === 'PENDING',
           'text-green-500': char.state === 'CORRECT',
-          'text-red-500': char.state === 'INCORRECT'
+          'text-red-500': char.state === 'INCORRECT',
+          'underline': char.state === 'INCORRECT',
+          'underline-offset-10': char.state === 'INCORRECT',
         }"
-        [class.bg-red-500]="(cursorPosition$ | async) === i"
+        [class.bg-neutral-600]="(cursorPosition$ | async) === i && (testStarted$ | async)"
         >{{ char.value }}</span
       >
       }
@@ -92,13 +103,13 @@
     <div
       [class.grid]="!(testStarted$ | async)"
       [class.hidden]="testStarted$ | async"
-      class="absolute inset-0 w-full grid place-items-center backdrop-blur-xs bg-amber-300/30"
+      class="absolute inset-0 w-full grid place-items-center backdrop-blur-sm"
     >
       <div class="text-center">
-        <button class="start-button cursor-pointer" (click)="onStartChallenge()">
+        <button data-tstButton class="start-button cursor-pointer" (click)="onStartChallenge()">
           Start Typing Test
         </button>
-        <p>Or click the text and start typing</p>
+        <p class="font-semibold text-xl mt-5">Or click the text and start typing</p>
       </div>
     </div>
   </div>
@@ -108,6 +119,9 @@
     [class.hidden]="!(testStarted$ | async)"
     class="text-center"
   >
-    <button class="cursor-pointer" (click)="onRestartChallenge()">Restart Test</button>
+    <button data-tstButton [variant]="'secondary'" (click)="onRestartChallenge()">
+      Restart Test
+      <img class="text-red-500" src="/images/icon-restart-light.svg" alt="" aria-hidden="true" />
+    </button>
   </div>
 </main>

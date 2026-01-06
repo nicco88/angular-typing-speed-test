@@ -1,27 +1,43 @@
-<h1>
-  {{ isPersonalBest() ? 'High Score Smashed!' : 'Test Complete!' }}
-</h1>
+<main class="text-center max-w-86.25 mx-auto mb-8">
+  <img
+    class="inline-block mb-10"
+    [attr.src]="isPersonalBest() ? '/images/icon-new-pb.svg' : '/images/icon-completed.svg'"
+    alt=""
+  />
+  <h1 class="text-2xl font-bold mb-2.5">
+    {{ isPersonalBest() ? 'High Score Smashed!' : 'Test Complete!' }}
+  </h1>
 
-<h2>
-  {{
-    isPersonalBest()
-      ? 'You’re getting faster. That was incredible typing.'
-      : 'Solid run. Keep pushing to beat your high score.'
-  }}
-</h2>
+  <h2 class="text-neutral-400 mb-6">
+    {{
+      isPersonalBest()
+        ? 'You’re getting faster. That was incredible typing.'
+        : 'Solid run. Keep pushing to beat your high score.'
+    }}
+  </h2>
 
-<dl>
-  <dt>WPM:</dt>
-  <dd>{{ wpm() }}</dd>
+  <dl class="text-left flex flex-col gap-4 mb-10">
+    <tst-result-metrics-wrapper title="WPM">
+      <dd class="text-2xl font-bold">{{ wpm() }}</dd>
+    </tst-result-metrics-wrapper>
 
-  <dt>Accuracy:</dt>
-  <dd [class.text-green-500]="isPersonalBest()">{{ accuracy() }}%</dd>
+    <tst-result-metrics-wrapper title="Accuracy">
+      <dd class="text-2xl font-bold" [class.text-green-500]="isPersonalBest()">
+        {{ accuracy() }}%
+      </dd>
+    </tst-result-metrics-wrapper>
 
-  <dt>Characters:</dt>
-  <dd>
-    <span class="text-green-500">{{ rightVsWrongChars()?.correctChars }}</span> /
-    <span class="text-red-500">{{ rightVsWrongChars()?.wrongChars }}</span>
-  </dd>
-</dl>
+    <tst-result-metrics-wrapper title="Characters">
+      <dd class="text-2xl font-bold">
+        <span class="text-green-500">{{ rightVsWrongChars()?.correctChars }}</span> /
+        <span class="text-red-500">{{ rightVsWrongChars()?.wrongChars }}</span>
+      </dd>
+    </tst-result-metrics-wrapper>
+  </dl>
 
-<a [routerLink]="'/'">{{isPersonalBest() ? "Beat This Score" : "Go Again"}}</a>
+  <a data-tstButton [variant]="'tertiary'" [routerLink]="'/'"
+    >{{ isPersonalBest() ? 'Beat This Score' : 'Go Again' }}
+
+    <img class="" src="/images/icon-restart-dark.svg" alt="" aria-hidden="true" />
+  </a>
+</main>

@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
+import { Button } from '../../directives/button';
 import { TypingSpeedService } from '../../services/typing-speed.service';
+import { ResultMetricsWrapper } from '../../components/result-metrics-wrapper/result-metrics-wrapper';
 
 @Component({
   selector: 'tst-result',
-  imports: [RouterLink],
+  imports: [RouterLink, Button, ResultMetricsWrapper],
   templateUrl: './result.html',
   styleUrl: './result.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

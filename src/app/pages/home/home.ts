@@ -11,10 +11,11 @@ import data from "./../../data.json";
 import { difficultyOptions, modeOptions } from './home.config';
 import { MetricsData } from '../../components/metrics-data/metrics-data';
 import { SettingsOption } from '../../directives/settings-option';
+import { Button } from '../../directives/button';
 
 @Component({
   selector: 'tst-home',
-  imports: [FormsModule, AsyncPipe, MetricsData, SettingsOption],
+  imports: [FormsModule, AsyncPipe, MetricsData, SettingsOption, Button],
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
