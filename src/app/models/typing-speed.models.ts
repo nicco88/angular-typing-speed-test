@@ -22,3 +22,8 @@ export interface ModeOption {
   id: "timed" | "passage";
 }
 
+export interface SettingsForm {
+  difficulty: Difficulty;
+  mode: Mode;
+}
+

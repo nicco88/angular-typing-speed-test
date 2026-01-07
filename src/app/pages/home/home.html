@@ -1,30 +1,90 @@
 <main>
-  <div class="flex flex-col lg:flex-row md:gap-x-20">
-    <dl class="flex max-w-121.25 mb-4 md:gap-x-4 md:mb-5 lg:mb-0">
+  <div class="flex flex-col lg:flex-row md:gap-x-20 mb-4 md:mb-8">
+    <dl
+      class="flex justify-center md:justify-start md:max-w-121.25 mb-4 gap-x-5 md:gap-x-4 md:mb-5 lg:mb-0"
+    >
       <!-- WPM -->
-      <tst-metrics-data dataTitle="WPM" dataValue="{{ wpm() }}" />
+      <tst-metrics-data class="flex-1 md:flex-none" dataTitle="WPM" dataValue="{{ wpm() }}" />
 
-      <div class="w-px bg-neutral-400 h-6" aria-hidden="true"></div>
+      <ng-container [ngTemplateOutlet]="verticalSeparator" />
 
       <!-- Accuracy -->
       <tst-metrics-data
+        class="flex-1 md:flex-none"
         dataTitle="Accuracy"
         dataValue="{{ accuracy() }}%"
         [dataIsRed]="accuracy() !== 100 && accuracy() !== 0"
       />
 
-      <div class="w-px bg-neutral-400 h-6" aria-hidden="true"></div>
+      <ng-container [ngTemplateOutlet]="verticalSeparator" />
 
       <!-- Time -->
       <tst-metrics-data
+        class="flex-1 md:flex-none"
         dataTitle="Time"
         dataValue="{{ time() }}"
         [dataIsYellow]="(testStarted$ | async) || undefined"
       />
     </dl>
 
-    <form class="md:flex gap-x-4 mb-8" #settingsForm="ngForm">
-      <fieldset>
+    <form class="gap-x-4 md:flex" #settingsForm="ngForm">
+      <div class="grid grid-cols-2 md:hidden gap-x-2.5">
+        <button
+          data-tstSettingsOption
+          [active]="false"
+          type="button"
+          popovertarget="difficulty-popover"
+        >
+          {{ difficultyLabel() }}
+          <!-- TODO: ADD ICON -->
+        </button>
+
+        <div
+          id="difficulty-popover"
+          class="settings-popover bg-transparent open:grid rounded-lg"
+          popover
+        >
+          @for(option of difficultyOptions; track option.id) {
+          <div class="bg-neutral-800 p-2.5 border-b last:border-b-0 border-neutral-700">
+            <input
+              [attr.id]="option.id + '-mobile'"
+              type="radio"
+              name="difficulty-mobile"
+              [(ngModel)]="difficulty"
+              [value]="option.value"
+            />
+
+            <label [attr.for]="option.id + '-mobile'" class="text-neutral-0 cursor-pointer">
+              {{ option.label }}
+            </label>
+          </div>
+          }
+        </div>
+
+        <button data-tstSettingsOption [active]="false" type="button" popovertarget="mode-popover">
+          {{ modeLabel() }}
+        </button>
+
+        <div id="mode-popover" class="settings-popover bg-transparent open:grid rounded-lg" popover>
+          @for(option of modeOptions; track option.id) {
+          <div class="bg-neutral-800 p-2.5 border-b last:border-b-0 border-neutral-700">
+            <input
+              [attr.id]="option.id + '-mobile'"
+              type="radio"
+              name="mode-mobile"
+              [(ngModel)]="mode"
+              [value]="option.value"
+            />
+
+            <label [attr.for]="option.id + '-mobile'" class="text-neutral-0 cursor-pointer">
+              {{ option.label }}
+            </label>
+          </div>
+          }
+        </div>
+      </div>
+
+      <fieldset class="hidden md:block">
         <div class="flex items-center gap-x-2">
           <legend class="text-neutral-400">Difficulty:</legend>
 
@@ -51,9 +111,9 @@
         </div>
       </fieldset>
 
-      <div class="w-px bg-neutral-400" aria-hidden="true"></div>
+      <ng-container class="hidden md:block" [ngTemplateOutlet]="verticalSeparator" />
 
-      <fieldset>
+      <fieldset class="hidden md:block">
         <div class="flex items-center gap-x-2">
           <legend class="text-neutral-400">Mode:</legend>
 
@@ -82,7 +142,10 @@
     </form>
   </div>
 
-  <div class="relative min-h-80">
+
+  <hr class=" border-neutral-700 mb-8 md:hidden" aria-hidden="true" />
+
+  <div class="relative">
     <div class="text-[2rem]/[136%] sm:text-[2.5rem]/[136%]">
       @for(char of testText$ | async; track $index; let i = $index) {
       <span
@@ -125,3 +188,7 @@
     </button>
   </div>
 </main>
+
+<ng-template #verticalSeparator>
+  <div class="w-px bg-neutral-700 md:h-6" aria-hidden="true"></div>
+</ng-template>

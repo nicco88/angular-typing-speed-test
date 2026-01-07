@@ -2,9 +2,8 @@
 
 @import 'tailwindcss';
 
-
 @font-face {
-  font-family: "Sora";
+  font-family: 'Sora';
   src: url('/fonts/Sora/Sora-VariableFont_wght.ttf') format('truetype-variations');
   font-optical-sizing: auto;
   font-weight: 400 700; /* Range of supported weights */
@@ -37,7 +36,8 @@
   --breakpoint-lg: 1440px;
 
   /* FONTS */
-  --font-sora: "Sora", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sora: 'Sora', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
 }
 
 body {
@@ -46,8 +46,13 @@ body {
   padding: 1rem;
   color: var(--color-neutral-0);
 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 3rem;
+
   @media (min-width: 375px) {
     padding: 2rem;
   }
 }
-

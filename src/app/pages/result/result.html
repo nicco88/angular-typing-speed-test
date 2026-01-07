@@ -1,4 +1,4 @@
-<main class="text-center max-w-86.25 mx-auto mb-8">
+<main class="text-center max-w-86.25 md:max-w-176 mx-auto mb-8">
   <img
     class="inline-block mb-10"
     [attr.src]="isPersonalBest() ? '/images/icon-new-pb.svg' : '/images/icon-completed.svg'"
@@ -16,18 +16,18 @@
     }}
   </h2>
 
-  <dl class="text-left flex flex-col gap-4 mb-10">
-    <tst-result-metrics-wrapper title="WPM">
+  <dl class="text-left flex flex-col md:flex-row gap-4 md:justify-between mb-10">
+    <tst-result-metrics-wrapper title="WPM" class="md:flex-1">
       <dd class="text-2xl font-bold">{{ wpm() }}</dd>
     </tst-result-metrics-wrapper>
 
-    <tst-result-metrics-wrapper title="Accuracy">
+    <tst-result-metrics-wrapper title="Accuracy" class="md:flex-1">
       <dd class="text-2xl font-bold" [class.text-green-500]="isPersonalBest()">
         {{ accuracy() }}%
       </dd>
     </tst-result-metrics-wrapper>
 
-    <tst-result-metrics-wrapper title="Characters">
+    <tst-result-metrics-wrapper title="Characters" class="md:flex-1">
       <dd class="text-2xl font-bold">
         <span class="text-green-500">{{ rightVsWrongChars()?.correctChars }}</span> /
         <span class="text-red-500">{{ rightVsWrongChars()?.wrongChars }}</span>

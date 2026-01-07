@@ -1,21 +1,21 @@
-import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnDestroy, ViewChild } from '@angular/core';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnDestroy, signal, ViewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, distinctUntilChanged, filter, fromEvent, Subject, takeUntil, tap, withLatestFrom } from "rxjs";
-import { CharState, Difficulty, Mode } from '../../models/typing-speed.models';
+import { MetricsData } from '../../components/metrics-data/metrics-data';
+import { Button } from '../../directives/button';
+import { SettingsOption } from '../../directives/settings-option';
+import { CharState, Difficulty, DifficultyOption, Mode, ModeOption } from '../../models/typing-speed.models';
 import { TypingSpeedService } from '../../services/typing-speed.service';
 import { UtilsService } from '../../services/utils.service';
 import data from "./../../data.json";
 import { difficultyOptions, modeOptions } from './home.config';
-import { MetricsData } from '../../components/metrics-data/metrics-data';
-import { SettingsOption } from '../../directives/settings-option';
-import { Button } from '../../directives/button';
 
 @Component({
   selector: 'tst-home',
-  imports: [FormsModule, AsyncPipe, MetricsData, SettingsOption, Button],
+  imports: [FormsModule, AsyncPipe, MetricsData, SettingsOption, Button, NgTemplateOutlet],
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,6 +47,9 @@ export class Home implements AfterViewInit, OnDestroy {
   wpm = toSignal(this.#typingSpeedService.getWpm$());
   accuracy = toSignal(this.#typingSpeedService.accuracy$);
   time = toSignal(this.time$);
+
+  difficultyLabel = signal<DifficultyOption["label"]>("Easy");
+  modeLabel = signal<ModeOption["label"]>("Timed (60s)");
 
   ngAfterViewInit(): void {
     this.#subscribeSettingsFormValueChanges();
@@ -97,6 +100,13 @@ export class Home implements AfterViewInit, OnDestroy {
       .subscribe()
   }
 
+  #getLabelByValue<T extends DifficultyOption | ModeOption>(
+    options: T[],
+    value: T['value']
+  ): T['label'] {
+    return options.find(o => o.value === value)?.label ?? options[0]?.label;
+  }
+
   #handleSettingsFormValueChangesEffect = ({ difficulty, mode }: { difficulty: Difficulty, mode: Mode }): void => {
     const charsState: CharState[] = this.#typingSpeedService.getCharsState(data[difficulty][this.#randomTextIndex].text);
 
@@ -104,6 +114,8 @@ export class Home implements AfterViewInit, OnDestroy {
     this.cursorPosition$.next(0);
     this.#typingSpeedService.updateMode(mode);
     this.onRestartChallenge();
+    this.difficultyLabel.set(this.#getLabelByValue(difficultyOptions, difficulty));
+    this.modeLabel.set(this.#getLabelByValue(modeOptions, mode));
   }
 
   #handleKeyboardEffect = ([event, cursorPosition, testText, testStarted]: [KeyboardEvent, number, CharState[], boolean]): void => {
