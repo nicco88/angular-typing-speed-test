@@ -28,7 +28,7 @@ export class TypingSpeedService {
   readonly rightVsWrongChars$ = this.#testText$.pipe(
     filter(testText => testText.length > 0),
     map(testText => {
-      const {correct, wrong} = this.#getCharsCount(testText);
+      const { correct, wrong } = this.#getCharsCount(testText);
 
       return { correctChars: correct, wrongChars: wrong };
     }),
@@ -75,7 +75,7 @@ export class TypingSpeedService {
   );
 
   #getAccuracy = (testText: CharState[]) => {
-    const {pending, correct} = this.#getCharsCount(testText);
+    const { pending, correct } = this.#getCharsCount(testText);
 
     if (pending === testText.length || correct === 0) return 0;
 
@@ -176,11 +176,11 @@ export class TypingSpeedService {
 
   #getCharsCount(testText: CharState[]): { pending: number, wrong: number, correct: number } {
     return testText.reduce((result, charState) => {
-      return {
-        pending: result.pending + (charState.state === "PENDING" ? 1 : 0),
-        wrong: result.wrong + (charState.historicalError ? 1 : 0),
-        correct: testText.length - result.wrong
-      }
+      const pending = result.pending + (charState.state === "PENDING" ? 1 : 0);
+      const wrong = result.wrong + (charState.historicalError ? 1 : 0);
+      const correct = testText.length - wrong - pending;
+
+      return { pending, wrong, correct }
     }, {
       pending: 0,
       wrong: 0,
