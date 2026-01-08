@@ -51,6 +51,9 @@ export class Home implements AfterViewInit, OnDestroy {
   difficultyLabel = signal<DifficultyOption["label"]>("Easy");
   modeLabel = signal<ModeOption["label"]>("Timed (60s)");
 
+  difficultyPopoverOpen = signal(false);
+  modePopoverOpen = signal(false);
+
   ngAfterViewInit(): void {
     this.#subscribeSettingsFormValueChanges();
     this.#subscribeDocumentKeydown();
@@ -75,6 +78,14 @@ export class Home implements AfterViewInit, OnDestroy {
     this.#typingSpeedService.updateTestStarted(false);
     this.#typingSpeedService.updateWpm(0);
     this.#startTime = null;
+  }
+
+  onDifficultyPopoverToggle(e: ToggleEvent) {
+    this.difficultyPopoverOpen.set(e.newState === "open");
+  }
+
+  onModePopoverToggle(e: ToggleEvent) {
+    this.modePopoverOpen.set(e.newState === "open");
   }
 
   #subscribeSettingsFormValueChanges(): void {
@@ -128,6 +139,11 @@ export class Home implements AfterViewInit, OnDestroy {
 
       if (!keyIsCorrect) {
         testText[cursorPosition].historicalError = true;
+      }
+
+      if (event.code == "Space" && event.target == document.body) {
+        // prevent scrolldown on space
+        event.preventDefault();
       }
 
       if (cursorPosition >= testText.length - 1) {

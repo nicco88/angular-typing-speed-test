@@ -36,13 +36,21 @@
           popovertarget="difficulty-popover"
         >
           {{ difficultyLabel() }}
-          <!-- TODO: ADD ICON -->
+
+          <img
+            src="/images/icon-down-arrow.svg"
+            alt=""
+            aria-hidden="true"
+            class="transition-all duration-300"
+            [class.rotate-180]="difficultyPopoverOpen()"
+          />
         </button>
 
         <div
           id="difficulty-popover"
           class="settings-popover bg-transparent open:grid rounded-lg"
           popover
+          (toggle)="onDifficultyPopoverToggle($event)"
         >
           @for(option of difficultyOptions; track option.id) {
           <div class="bg-neutral-800 p-2.5 border-b last:border-b-0 border-neutral-700">
@@ -63,9 +71,22 @@
 
         <button data-tstSettingsOption [active]="false" type="button" popovertarget="mode-popover">
           {{ modeLabel() }}
+
+          <img
+            src="/images/icon-down-arrow.svg"
+            alt=""
+            aria-hidden="true"
+            class="transition-all duration-300"
+            [class.rotate-180]="modePopoverOpen()"
+          />
         </button>
 
-        <div id="mode-popover" class="settings-popover bg-transparent open:grid rounded-lg" popover>
+        <div
+          id="mode-popover"
+          class="settings-popover bg-transparent open:grid rounded-lg"
+          popover
+          (toggle)="onModePopoverToggle($event)"
+        >
           @for(option of modeOptions; track option.id) {
           <div class="bg-neutral-800 p-2.5 border-b last:border-b-0 border-neutral-700">
             <input
@@ -104,6 +125,7 @@
                 [(ngModel)]="difficulty"
                 [value]="option.value"
                 class="sr-only"
+                tabindex="-1"
               />
             </div>
             }
@@ -133,6 +155,7 @@
                 [(ngModel)]="mode"
                 [value]="option.value"
                 class="sr-only"
+                tabindex="-1"
               />
             </div>
             }
@@ -142,10 +165,9 @@
     </form>
   </div>
 
+  <hr class="border-neutral-700 mb-8 md:hidden" aria-hidden="true" />
 
-  <hr class=" border-neutral-700 mb-8 md:hidden" aria-hidden="true" />
-
-  <div class="relative">
+  <div class="relative mb-14 md:mb-24">
     <div class="text-[2rem]/[136%] sm:text-[2.5rem]/[136%]">
       @for(char of testText$ | async; track $index; let i = $index) {
       <span
