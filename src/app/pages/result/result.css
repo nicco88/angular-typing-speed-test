@@ -24,6 +24,10 @@
   animation: 20s ease-in-out infinite star-2-pulse;
 }
 
+.tada {
+  animation: tada 1.2s ease-in-out;
+}
+
 @keyframes lightpulse {
   0% {
     filter: drop-shadow(var(--color-green-500) 0px 0px 8px)
@@ -83,3 +87,13 @@
     filter: drop-shadow(var(--color-red-500) 0px 0px 1px);
   }
 }
+
+@keyframes tada {
+  0% { transform: scale(1); }
+  10%, 20% { transform: scale(0.9) rotate(-3deg); }
+  30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); }
+  40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+

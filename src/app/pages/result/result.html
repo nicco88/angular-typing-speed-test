@@ -1,5 +1,9 @@
 <main class="text-center max-w-86.25 md:max-w-176 mx-auto mb-8">
-  <div class="relative w-fit mx-auto mb-10 rounded-full" [class.icon-completed]="!isPersonalBest()">
+  <div
+    class="relative w-fit mx-auto mb-10 rounded-full"
+    [class.icon-completed]="!isPersonalBest()"
+    [class.tada]="isPersonalBest()"
+  >
     <img
       class="inline-block"
       [attr.src]="isPersonalBest() ? '/images/icon-new-pb.svg' : '/images/icon-completed.svg'"
@@ -61,4 +65,9 @@
     src="/images/pattern-star-1.svg"
     alt=""
   />
+
 </main>
+
+@if(isPersonalBest()) {
+  <tst-confetti />
+}

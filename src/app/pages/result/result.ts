@@ -4,10 +4,11 @@ import { Router, RouterLink } from '@angular/router';
 import { Button } from '../../directives/button';
 import { TypingSpeedService } from '../../services/typing-speed.service';
 import { ResultMetricsWrapper } from '../../components/result-metrics-wrapper/result-metrics-wrapper';
+import { Confetti } from '../../components/confetti/confetti';
 
 @Component({
   selector: 'tst-result',
-  imports: [RouterLink, Button, ResultMetricsWrapper],
+  imports: [RouterLink, Button, ResultMetricsWrapper, Confetti],
   templateUrl: './result.html',
   styleUrl: './result.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
