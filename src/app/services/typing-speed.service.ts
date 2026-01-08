@@ -75,11 +75,11 @@ export class TypingSpeedService {
   );
 
   #getAccuracy = (testText: CharState[]) => {
-    const { pending, correct } = this.#getCharsCount(testText);
+    const { pending, correctForAccuracy } = this.#getCharsCount(testText);
 
-    if (pending === testText.length || correct === 0) return 0;
+    if (pending === testText.length || correctForAccuracy === 0) return 0;
 
-    return Math.round((correct * 100) / testText.length)
+    return Math.round((correctForAccuracy * 100) / testText.length)
   }
 
   readonly accuracy$ = this.#testText$.pipe(
@@ -174,17 +174,19 @@ export class TypingSpeedService {
     return false;
   }
 
-  #getCharsCount(testText: CharState[]): { pending: number, wrong: number, correct: number } {
+  #getCharsCount(testText: CharState[]): { pending: number, wrong: number, correct: number, correctForAccuracy: number } {
     return testText.reduce((result, charState) => {
       const pending = result.pending + (charState.state === "PENDING" ? 1 : 0);
       const wrong = result.wrong + (charState.historicalError ? 1 : 0);
       const correct = testText.length - wrong - pending;
+      const correctForAccuracy = testText.length - wrong;
 
-      return { pending, wrong, correct }
+      return { pending, wrong, correct, correctForAccuracy }
     }, {
       pending: 0,
       wrong: 0,
-      correct: 0
+      correct: 0,
+      correctForAccuracy: testText.length,
     })
   }
 

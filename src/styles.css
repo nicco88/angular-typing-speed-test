@@ -32,8 +32,8 @@
   --color-yellow-500: hsl(49, 85%, 70%);
 
   /* BREAKPOINTS */
-  --breakpoint-sm: 375px;
-  --breakpoint-lg: 1440px;
+  --breakpoint-sm: 23.4375rem;
+  --breakpoint-lg: 90rem;
 
   /* FONTS */
   --font-sora: 'Sora', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',

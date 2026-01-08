@@ -1,7 +1,7 @@
 <main>
   <div class="flex flex-col lg:flex-row md:gap-x-20 mb-4 md:mb-8">
     <dl
-      class="flex justify-center md:justify-start md:max-w-121.25 mb-4 gap-x-5 md:gap-x-4 md:mb-5 lg:mb-0"
+      class="flex justify-center md:justify-start md:max-w-121.25 mb-4 gap-x-5 md:gap-x-4 md:mb-5 lg:items-center lg:mb-0"
     >
       <!-- WPM -->
       <tst-metrics-data class="flex-1 md:flex-none" dataTitle="WPM" dataValue="{{ wpm() }}" />
@@ -27,7 +27,7 @@
       />
     </dl>
 
-    <form class="gap-x-4 md:flex" #settingsForm="ngForm">
+    <form class="gap-x-4 md:flex md:items-center" #settingsForm="ngForm">
       <div class="grid grid-cols-2 md:hidden gap-x-2.5">
         <button
           data-tstSettingsOption
@@ -171,13 +171,12 @@
     <div class="text-[2rem]/[136%] sm:text-[2.5rem]/[136%]">
       @for(char of testText$ | async; track $index; let i = $index) {
       <span
-        class="rounded-sm px-px"
+        class="rounded-sm px-px relative"
         [class]="{
           'text-neutral-400': char.state === 'PENDING',
           'text-green-500': char.state === 'CORRECT',
           'text-red-500': char.state === 'INCORRECT',
-          'underline': char.state === 'INCORRECT',
-          'underline-offset-10': char.state === 'INCORRECT',
+          'wrong-character': char.state === 'INCORRECT',
         }"
         [class.bg-neutral-600]="(cursorPosition$ | async) === i && (testStarted$ | async)"
         >{{ char.value }}</span
