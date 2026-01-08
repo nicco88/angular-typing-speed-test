@@ -204,7 +204,7 @@
     [class.hidden]="!(testStarted$ | async)"
     class="text-center"
   >
-    <button data-tstButton [variant]="'secondary'" (click)="onRestartChallenge()">
+    <button data-tstButton [variant]="'secondary'" (click)="onRestartChallenge(difficulty)">
       Restart Test
       <img class="text-red-500" src="/images/icon-restart-light.svg" alt="" aria-hidden="true" />
     </button>

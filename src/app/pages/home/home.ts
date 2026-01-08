@@ -68,10 +68,10 @@ export class Home implements AfterViewInit, OnDestroy {
     this.#typingSpeedService.updateTestStarted(true)
   }
 
-  onRestartChallenge(): void {
-    this.#randomTextIndex = this.#utils.getRandomIndex(data[this.difficulty].length);
+  onRestartChallenge(difficulty: Difficulty): void {
+    this.#randomTextIndex = this.#utils.getRandomIndex(data[difficulty].length);
 
-    const textByDifficulty = data[this.difficulty][this.#randomTextIndex].text;
+    const textByDifficulty = data[difficulty][this.#randomTextIndex].text;
 
     this.#typingSpeedService.updateTestText(this.#typingSpeedService.getCharsState(textByDifficulty));
     this.cursorPosition$.next(0);
@@ -124,7 +124,7 @@ export class Home implements AfterViewInit, OnDestroy {
     this.#typingSpeedService.updateTestText(charsState);
     this.cursorPosition$.next(0);
     this.#typingSpeedService.updateMode(mode);
-    this.onRestartChallenge();
+    this.onRestartChallenge(difficulty);
     this.difficultyLabel.set(this.#getLabelByValue(difficultyOptions, difficulty));
     this.modeLabel.set(this.#getLabelByValue(modeOptions, mode));
   }
