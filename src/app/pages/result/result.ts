@@ -20,13 +20,15 @@ export class Result implements OnInit {
   accuracy = toSignal(this.#typingSpeedService.accuracy$);
   rightVsWrongChars = toSignal(this.#typingSpeedService.rightVsWrongChars$);
   isPersonalBest = signal(false);
+  isFirstTime = signal(false);
 
   constructor() {
     const currentNavigation = this.#router.currentNavigation();
 
     if (currentNavigation?.extras.state) {
-      const { isPersonalBest } = currentNavigation.extras.state as { isPersonalBest: boolean };
+      const { isFirstTime, isPersonalBest } = currentNavigation.extras.state as { isPersonalBest: boolean, isFirstTime: boolean };
 
+      if (isFirstTime) this.isFirstTime.set(true);
       if (isPersonalBest) this.isPersonalBest.set(true);
     }
 

@@ -147,9 +147,9 @@ export class Home implements AfterViewInit, OnDestroy {
       }
 
       if (cursorPosition >= testText.length - 1) {
-        const isPersonalBest = this.#typingSpeedService.shouldUpdatePersonalBest(this.wpm());
+        const { isFirstTime, isPersonalBest } = this.#typingSpeedService.getResultState(this.wpm());
 
-        this.#router.navigateByUrl("/result", { state: { isPersonalBest, finished: true } });
+        this.#router.navigateByUrl("/result", { state: { isFirstTime, isPersonalBest, finished: true } });
       };
       if (isBackspace) return this.cursorPosition$.next(Math.max(cursorPosition - 1, 0));
 

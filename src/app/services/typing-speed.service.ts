@@ -45,9 +45,9 @@ export class TypingSpeedService {
         withLatestFrom(this.#wpm$),
         tap(([countdown, wpm]) => {
           if (countdown === 0) {
-            const isPersonalBest = this.shouldUpdatePersonalBest(wpm);
+            const { isFirstTime, isPersonalBest } = this.getResultState(wpm);
 
-            this.#router.navigateByUrl("/result", { state: { isPersonalBest, finished: true } });
+            this.#router.navigateByUrl("/result", { state: { isFirstTime, isPersonalBest, finished: true } });
           }
         }),
         map(([countdown]) => countdown)
@@ -158,20 +158,28 @@ export class TypingSpeedService {
     return this.#testStarted$.asObservable();
   }
 
-  shouldUpdatePersonalBest(wpm: number | undefined): boolean {
-    if (wpm == null) return false;
+  getResultState(wpm: number | undefined): { isFirstTime: boolean, isPersonalBest: boolean } {
+    const defaultResult = { isFirstTime: false, isPersonalBest: false };
 
-    const personalBest = this.personalBest();
-    const isFirstTime = personalBest == null && wpm > 0;
-    const isNewPersonalBest = personalBest != null && wpm > personalBest;
+    if (wpm == null) return defaultResult;
 
-    if (isFirstTime || isNewPersonalBest) {
+    const currentPersonalBest = this.personalBest();
+    const isFirstTime = !currentPersonalBest && wpm !== 0;
+    const isPersonalBest = currentPersonalBest != null && wpm > currentPersonalBest;
+
+    if (isFirstTime) {
       this.personalBest.set(wpm);
 
-      return true;
+      return { isFirstTime: true, isPersonalBest: false };
+    }
+    
+    if (isPersonalBest) {
+      this.personalBest.set(wpm);
+
+      return { isFirstTime: false, isPersonalBest: true };
     }
 
-    return false;
+    return defaultResult;
   }
 
   #getCharsCount(testText: CharState[]): { pending: number, wrong: number, correct: number, correctForAccuracy: number } {

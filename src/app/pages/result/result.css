@@ -1,3 +1,85 @@
 :host {
   display: block;
 }
+
+.icon-completed::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--color-green-500);
+  border-radius: 50%;
+  z-index: -1;
+  animation: 4s ease-in-out infinite lightpulse;
+  transform-origin: center;
+}
+
+.star-1 {
+  animation: 15s ease-in infinite star-1-pulse;
+}
+
+.star-2 {
+  animation: 20s ease-in-out infinite star-2-pulse;
+}
+
+@keyframes lightpulse {
+  0% {
+    filter: drop-shadow(var(--color-green-500) 0px 0px 8px)
+      drop-shadow(var(--color-green-300) 0px 0px 12px)
+      drop-shadow(var(--color-green-200) 0px 0px 16px);
+  }
+
+  70% {
+    filter: drop-shadow(var(--color-green-500) 0px 0px 2px)
+      drop-shadow(var(--color-green-300) 0px 0px 8px)
+      drop-shadow(var(--color-green-200) 0px 0px 2px);
+  }
+
+  100% {
+    filter: drop-shadow(var(--color-green-500) 0px 0px 8px)
+      drop-shadow(var(--color-green-300) 0px 0px 12px)
+      drop-shadow(var(--color-green-200) 0px 0px 16px);
+  }
+}
+
+@keyframes star-1-pulse {
+  0% {
+    scale: 1;
+    filter: drop-shadow(var(--color-yellow-500) 0px 0px 2px)
+      drop-shadow(var(--color-yellow-300) 0px 0px 3px)
+      drop-shadow(var(--color-yellow-200) 0px 0px 4px);
+  }
+
+  60% {
+    scale: 0.8;
+    filter: drop-shadow(var(--color-yellow-500) 0px 0px 1px)
+      drop-shadow(var(--color-yellow-300) 0px 0px 2px)
+      drop-shadow(var(--color-yellow-200) 0px 0px 3px);
+  }
+
+  100% {
+    scale: 1;
+    filter: drop-shadow(var(--color-yellow-500) 0px 0px 2px)
+      drop-shadow(var(--color-yellow-300) 0px 0px 3px)
+      drop-shadow(var(--color-yellow-200) 0px 0px 4px);
+  }
+}
+
+@keyframes star-2-pulse {
+  0% {
+    scale: 0.8;
+    filter: drop-shadow(var(--color-red-500) 0px 0px 1px);
+  }
+
+  60% {
+    scale: 1;
+    filter: drop-shadow(var(--color-red-500) 0px 0px 2px);
+  }
+
+  100% {
+    scale: 0.8;
+    filter: drop-shadow(var(--color-red-500) 0px 0px 1px);
+  }
+}

@@ -1,19 +1,21 @@
 <main class="text-center max-w-86.25 md:max-w-176 mx-auto mb-8">
-  <img
-    class="inline-block mb-10"
-    [attr.src]="isPersonalBest() ? '/images/icon-new-pb.svg' : '/images/icon-completed.svg'"
-    alt=""
-  />
+  <div class="relative w-fit mx-auto mb-10 rounded-full" [class.icon-completed]="!isPersonalBest()">
+    <img
+      class="inline-block"
+      [attr.src]="isPersonalBest() ? '/images/icon-new-pb.svg' : '/images/icon-completed.svg'"
+      alt=""
+    />
+  </div>
   <h1 class="text-2xl font-bold mb-2.5">
-    {{ isPersonalBest() ? 'High Score Smashed!' : 'Test Complete!' }}
+    @if(isFirstTime()) { Baseline Established! }
+    @else if (isPersonalBest()) { High Score Smashed! }
+    @else { Test Complete! }
   </h1>
 
   <h2 class="text-neutral-400 mb-6">
-    {{
-      isPersonalBest()
-        ? 'You’re getting faster. That was incredible typing.'
-        : 'Solid run. Keep pushing to beat your high score.'
-    }}
+    @if(isFirstTime()) { You’ve set the bar. Now the real challenge begins—time to beat it. }
+    @else if (isPersonalBest()) { You’re getting faster. That was incredible typing. }
+    @else { Solid run. Keep pushing to beat your high score. }
   </h2>
 
   <dl class="text-left flex flex-col md:flex-row gap-4 md:justify-between mb-10">
@@ -22,7 +24,11 @@
     </tst-result-metrics-wrapper>
 
     <tst-result-metrics-wrapper title="Accuracy" class="md:flex-1">
-      <dd class="text-2xl font-bold" [class.text-green-500]="isPersonalBest()">
+      <dd
+        class="text-2xl font-bold"
+        [class.text-green-500]="accuracy() === 100"
+        [class.text-red-500]="accuracy() !== 100"
+      >
         {{ accuracy() }}%
       </dd>
     </tst-result-metrics-wrapper>
@@ -35,9 +41,24 @@
     </tst-result-metrics-wrapper>
   </dl>
 
-  <a data-tstButton [variant]="'tertiary'" [routerLink]="'/'"
-    >{{ isPersonalBest() ? 'Beat This Score' : 'Go Again' }}
+  <a data-tstButton [variant]="'tertiary'" [routerLink]="'/'">
+    {{ isPersonalBest() || isFirstTime() ? 'Beat This Score' : 'Go Again' }}
 
-    <img class="" src="/images/icon-restart-dark.svg" alt="" aria-hidden="true" />
+    <img src="/images/icon-restart-dark.svg" alt="" aria-hidden="true" />
   </a>
+
+  <img
+    class="star-2 opacity-80 absolute animate-pulse top-[20%] md:top-[30%] left-[5%] lg:left-[18%] -z-10"
+    [class.hidden]="isPersonalBest()"
+    loading="lazy"
+    src="/images/pattern-star-2.svg"
+    alt=""
+  />
+  <img
+    class="star-1 opacity-80 absolute animate-pulse top-[90%] md:top-[80%] right-[7%] lg:right-[14%] -z-10"
+    [class.hidden]="isPersonalBest()"
+    loading="lazy"
+    src="/images/pattern-star-1.svg"
+    alt=""
+  />
 </main>
