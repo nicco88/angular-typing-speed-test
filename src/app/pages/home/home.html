@@ -27,8 +27,11 @@
       />
     </dl>
 
+    <!-- Settings form -->
     <form class="gap-x-4 md:flex md:items-center" #settingsForm="ngForm">
+      <!-- Mobile settings wrapper -->
       <div class="grid grid-cols-2 md:hidden gap-x-2.5">
+        <!-- Mobile difficulty settings -->
         <button
           data-tstSettingsOption
           [active]="false"
@@ -69,6 +72,7 @@
           }
         </div>
 
+        <!-- Mobile mode settings -->
         <button data-tstSettingsOption [active]="false" type="button" popovertarget="mode-popover">
           {{ modeLabel() }}
 
@@ -105,6 +109,7 @@
         </div>
       </div>
 
+      <!-- Desktop difficutly settings -->
       <fieldset class="hidden md:block">
         <div class="flex items-center gap-x-2">
           <legend class="text-neutral-400">Difficulty:</legend>
@@ -133,8 +138,10 @@
         </div>
       </fieldset>
 
+      <!-- Vertical separator -->
       <ng-container class="hidden md:block" [ngTemplateOutlet]="verticalSeparator" />
 
+      <!-- Desktop mode settings -->
       <fieldset class="hidden md:block">
         <div class="flex items-center gap-x-2">
           <legend class="text-neutral-400">Mode:</legend>
@@ -165,8 +172,10 @@
     </form>
   </div>
 
+  <!-- Horizontal separator -->
   <hr class="border-neutral-700 mb-8 md:hidden" aria-hidden="true" />
 
+  <!-- Test text section -->
   <div class="relative mb-14 md:mb-24">
     <div class="text-[2rem]/[136%] sm:text-[2.5rem]/[136%]">
       @for(char of testText$ | async; track $index; let i = $index) {
@@ -184,6 +193,7 @@
       }
     </div>
 
+    <!-- Exercise start panel -->
     <div
       [class.grid]="!(testStarted$ | async)"
       [class.hidden]="testStarted$ | async"
@@ -193,11 +203,13 @@
         <button data-tstButton class="start-button cursor-pointer" (click)="onStartChallenge()">
           Start Typing Test
         </button>
+
         <p class="font-semibold text-xl mt-5">Or click the text and start typing</p>
       </div>
     </div>
   </div>
 
+  <!-- Restart button -->
   <div
     [class.block]="testStarted$ | async"
     [class.hidden]="!(testStarted$ | async)"
@@ -210,6 +222,7 @@
   </div>
 </main>
 
+<!-- Vertical separator template -->
 <ng-template #verticalSeparator>
   <div class="w-px bg-neutral-700 md:h-6" aria-hidden="true"></div>
 </ng-template>

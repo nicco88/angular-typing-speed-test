@@ -1,4 +1,5 @@
 <main class="text-center max-w-86.25 md:max-w-176 mx-auto mb-8">
+  <!-- Result icon -->
   <div
     class="relative w-fit mx-auto mb-10 rounded-full"
     [class.icon-completed]="!isPersonalBest()"
@@ -8,20 +9,25 @@
       class="inline-block"
       [attr.src]="isPersonalBest() ? '/images/icon-new-pb.svg' : '/images/icon-completed.svg'"
       alt=""
+      aria-hidden="true"
     />
   </div>
+
+  <!-- Result title -->
   <h1 class="text-2xl font-bold mb-2.5">
     @if(isFirstTime()) { Baseline Established! }
     @else if (isPersonalBest()) { High Score Smashed! }
     @else { Test Complete! }
   </h1>
 
+  <!-- Result subtitle -->
   <h2 class="text-neutral-400 mb-6">
     @if(isFirstTime()) { You’ve set the bar. Now the real challenge begins—time to beat it. }
     @else if (isPersonalBest()) { You’re getting faster. That was incredible typing. }
     @else { Solid run. Keep pushing to beat your high score. }
   </h2>
 
+  <!-- Result metrics -->
   <dl class="text-left flex flex-col md:flex-row gap-4 md:justify-between mb-10">
     <tst-result-metrics-wrapper title="WPM" class="md:flex-1">
       <dd class="text-2xl font-bold">{{ wpm() }}</dd>
@@ -45,18 +51,21 @@
     </tst-result-metrics-wrapper>
   </dl>
 
+  <!-- Restart exercise button -->
   <a data-tstButton [variant]="'secondary'" [routerLink]="'/'">
     {{ isPersonalBest() || isFirstTime() ? 'Beat This Score' : 'Go Again' }}
 
     <img src="/images/icon-restart-dark.svg" alt="" aria-hidden="true" />
   </a>
 
+  <!-- Decoration images -->
   <img
     class="star-2 opacity-80 absolute animate-pulse top-[20%] md:top-[30%] left-[5%] lg:left-[18%] -z-10"
     [class.hidden]="isPersonalBest()"
     loading="lazy"
     src="/images/pattern-star-2.svg"
     alt=""
+    aria-hidden="true"
   />
   <img
     class="star-1 opacity-80 absolute animate-pulse top-[90%] md:top-[80%] right-[7%] lg:right-[14%] -z-10"
@@ -64,10 +73,11 @@
     loading="lazy"
     src="/images/pattern-star-1.svg"
     alt=""
+    aria-hidden="true"
   />
-
 </main>
 
 @if(isPersonalBest()) {
+  <!-- Animated confetti image -->
   <tst-confetti />
 }
