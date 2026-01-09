@@ -21,7 +21,11 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/",
+                "ignore": [
+                  "**/images/pattern-confetti.svg"
+                ]
               }
             ],
             "styles": [
