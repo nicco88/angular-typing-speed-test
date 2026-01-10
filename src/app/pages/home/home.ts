@@ -13,10 +13,11 @@ import { TypingSpeedService } from '../../services/typing-speed.service';
 import { UtilsService } from '../../services/utils.service';
 import data from "./../../data.json";
 import { difficultyOptions, modeOptions } from './home.config';
+import { DesktopSettings } from "../../components/desktop-settings/desktop-settings";
 
 @Component({
   selector: 'tst-home',
-  imports: [FormsModule, AsyncPipe, MetricsData, SettingsOption, Button, NgTemplateOutlet, MobileSettings],
+  imports: [FormsModule, AsyncPipe, MetricsData, SettingsOption, Button, NgTemplateOutlet, MobileSettings, DesktopSettings],
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

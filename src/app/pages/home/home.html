@@ -35,7 +35,8 @@
         <tst-mobile-settings
           [label]="difficultyLabel()"
           [options]="difficultyOptions"
-          [(value)]="difficulty"
+          [(ngModel)]="difficulty"
+          name="difficulty"
           [id]="'difficulty'"
         />
 
@@ -43,71 +44,30 @@
         <tst-mobile-settings
           [label]="modeLabel()"
           [options]="modeOptions"
-          [(value)]="mode"
+          [(ngModel)]="mode"
+          name="mode"
           [id]="'mode'"
         />
       </div>
 
       <!-- Desktop difficutly settings -->
-      <fieldset class="hidden md:block">
-        <div class="flex items-center gap-x-2">
-          <legend class="text-neutral-400">Difficulty:</legend>
-
-          <div class="flex gap-x-1.5">
-            @for(option of difficultyOptions; track option.id) {
-            <div>
-              <label
-                data-tstSettingsOption
-                [active]="difficulty === option.value"
-                [attr.for]="option.id"
-                >{{ option.label }}</label
-              >
-              <input
-                type="radio"
-                name="difficulty"
-                [attr.id]="option.id"
-                [(ngModel)]="difficulty"
-                [value]="option.value"
-                class="sr-only"
-                tabindex="-1"
-              />
-            </div>
-            }
-          </div>
-        </div>
-      </fieldset>
+      <tst-desktop-settings
+        [label]="difficultyLabel()"
+        [options]="difficultyOptions"
+        [(ngModel)]="difficulty"
+        name="difficulty"
+      />
 
       <!-- Vertical separator -->
       <ng-container class="hidden md:block" [ngTemplateOutlet]="verticalSeparator" />
 
       <!-- Desktop mode settings -->
-      <fieldset class="hidden md:block">
-        <div class="flex items-center gap-x-2">
-          <legend class="text-neutral-400">Mode:</legend>
-
-          <div class="flex gap-x-1.5">
-            @for(option of modeOptions; track option.id) {
-            <div>
-              <label
-                data-tstSettingsOption
-                [active]="mode === option.value"
-                [attr.for]="option.id"
-                >{{ option.label }}</label
-              >
-              <input
-                type="radio"
-                name="mode"
-                [attr.id]="option.id"
-                [(ngModel)]="mode"
-                [value]="option.value"
-                class="sr-only"
-                tabindex="-1"
-              />
-            </div>
-            }
-          </div>
-        </div>
-      </fieldset>
+      <tst-desktop-settings
+        [label]="modeLabel()"
+        [options]="modeOptions"
+        [(ngModel)]="mode"
+        name="mode"
+      />
     </form>
   </div>
 

@@ -1,45 +1,36 @@
 import { ChangeDetectionStrategy, Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SettingsOption } from '../../directives/settings-option';
 import { BaseOption } from '../../models/typing-speed.models';
+import { SettingsOption } from '../../directives/settings-option';
 
 @Component({
-  selector: 'tst-mobile-settings',
+  selector: 'tst-desktop-settings',
   imports: [SettingsOption],
-  templateUrl: './mobile-settings.html',
-  styleUrl: './mobile-settings.css',
+  templateUrl: './desktop-settings.html',
+  styleUrl: './desktop-settings.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => MobileSettings),
+      useExisting: forwardRef(() => DesktopSettings),
       multi: true,
     },
   ],
 })
-export class MobileSettings<T extends BaseOption> implements ControlValueAccessor {
+export class DesktopSettings<T extends BaseOption> implements ControlValueAccessor {
   label = input.required<string>();
   options = input.required<T[]>();
-  id = input.required<string>();
+  name = input.required<string>();
 
   value = signal<T["value"] | null>(null);
-
-  popoverOpen = signal(false);
 
   onChange: (value: T["value"]) => void = () => {};
   onTouched: () => void = () => {};
 
-  onPopoverToggle(e: ToggleEvent) {
-    this.popoverOpen.set(e.newState === "open");
-
-    if (e.newState === 'closed') {
-      this.onTouched();
-    }
-  }
-
   updateValue(value: string) {
     this.value.set(value);
     this.onChange(value);
+    this.onTouched();
   }
 
   writeValue(value: T["value"]): void {
