@@ -1,211 +1,82 @@
-# Frontend Mentor - Typing Speed Test
+# Typing Speed Test - Frontend Mentor Challange - Angular
 
-![Design preview for the Typing Speed Test coding challenge](./preview.jpg)
+![Design preview for the Typing Speed Test coding challenge](./preview.png)
 
-## Welcome! 👋
+This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/typing-speed-test-task-K0wHn8f4g). This application tests a user's typing speed and accuracy across different difficulty levels and modes.
 
-Thanks for checking out this front-end coding challenge.
+## Table of Contents
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
+- [Typing Speed Test - Frontend Mentor Challange - Angular](#typing-speed-test---frontend-mentor-challange---angular)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+    - [The Challenge](#the-challenge)
+    - [Links (TODO)](#links-todo)
+  - [My Process](#my-process)
+    - [Built With](#built-with)
+    - [Features](#features)
+    - [What I Learned (TODO)](#what-i-learned-todo)
+  - [Getting Started](#getting-started)
+    - [Development server](#development-server)
+    - [Building](#building)
+  - [Author](#author)
 
-**To do this challenge, you need a good understanding of HTML, CSS and JavaScript.**
+## Overview
 
-## The challenge
+### The Challenge
 
-Your challenge is to build out this typing speed test app and get it looking as close to the design as possible.
+Users should be able to:
 
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
+- Start a test by clicking the start button or simply typing.
+- Select a difficulty level (Easy, Medium, Hard).
+- Switch between "Timed (60s)" mode and "Passage" mode (completion based).
+- View real-time WPM (Words Per Minute), accuracy, and time stats.
+- Receive visual feedback on correct/incorrect characters and cursor position.
+- See a "High Score" celebration when beating a personal best (persisted via localStorage).
+- View an optimal layout on different screen sizes.
 
-We store the passage data in a local `data.json` file. You can use that to randomly select passages of varying difficulty.
+### Links (TODO)
 
-Your users should be able to:
+- Solution URL: Add your solution URL here
+- Live Site URL: Add your live site URL here
 
-#### Test Controls
+## My Process
 
-- Start a test by clicking the start button or by clicking the passage and typing
-- Select a difficulty level (Easy, Medium, Hard) for passages of varying complexity
-- Switch between "Timed (60s)" mode and "Passage" mode (timer counts up, no limit)
-- Restart at any time to get a new random passage from the selected difficulty
+- **Technology Choice**: Selected Angular 21 to leverage the latest features. I was particularly interested in combining Signals for state management with RxJS Observables for handling the timer and input streams.
+- **Analysis & Structure**: Analyzed the provided designs to break down the UI into reusable components. I started by scaffolding the basic HTML structure to establish the application's layout.
+- **Logic Implementation**: Prioritized the core functionality—typing validation, WPM calculation, and game modes—before moving on to styling. This ensured a robust foundation for the application.
+- **Styling & Polish**: Applied Tailwind CSS to match the design system, focusing on responsiveness and interactive states. Added animations for visual feedback during the typing test.
+- **Testing & Refinement**: Performed manual testing to ensure data persistence worked correctly and to squash bugs related to the timer and text comparison logic.
 
-#### Typing Experience
+### Built With
 
-- See real-time WPM, accuracy, and time stats while typing
-- See visual feedback showing correct characters (green), errors (red/underlined), and cursor position
-- Correct mistakes with backspace (original errors still count against accuracy)
+- **Angular** - Component-based framework
+- **TypeScript** - Strongly typed logic
+- **RxJS/Signals** - Handling timer streams and events
+- **CSS/Tailwind** - Custom properties and responsive layout
+- **Mobile-first workflow**
 
-#### Results & Progress
+### Features
 
-- View results showing WPM, accuracy, and characters (correct/incorrect) after completing a test
-- See a "Baseline Established!" message on their first test, setting their personal best
-- See a "High Score Smashed!" celebration with confetti when beating their personal best
-- Have their personal best persist across sessions via localStorage
+- **Dynamic Passage Loading**: Passages are fetched from a local JSON data source based on the selected difficulty.
+- **Real-time Validation**: The typing engine compares input against the active passage in real-time, calculating accuracy on the fly.
+- **Persistence**: Personal bests are stored in the browser's LocalStorage, so users retain their high scores across sessions.
 
-#### UI & Responsiveness
+### What I Learned (TODO)
 
-- View the optimal layout depending on their device's screen size
-- See hover and focus states for all interactive elements
+## Getting Started
 
-### Data Model
+This project was scaffolded with Angular CLI.
 
-A `data.json` file is provided with passages organized by difficulty. Each passage has the following structure:
+### Development server
 
-```json
-{
-  "id": "easy-1",
-  "text": "The sun rose over the quiet town. Birds sang in the trees as people woke up and started their day."
-}
-```
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-| Property | Type | Description |
-| --- | --- | --- |
-| `id` | string | Unique identifier for the passage (e.g., "easy-1", "medium-3", "hard-10") |
-| `text` | string | The passage text the user will type |
+### Building
 
-### Expected Behaviors
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-- **Starting the test**: The timer begins when the user starts typing or clicks the start button. Clicking directly on the passage text and typing also initiates the test
-- **Timed mode**: 60-second countdown. Test ends when timer reaches 0 or passage is completed
-- **Passage mode**: Timer counts up with no limit. Test ends when the full passage is typed
-- **Error handling**: Incorrect characters are highlighted in red with an underline. Backspace allows corrections, but errors still count against accuracy
-- **Results logic**:
-  - First completed test: "Baseline Established!" - sets initial personal best
-  - New personal best: "High Score Smashed!" with confetti animation
-  - Normal completion: "Test Complete!" with encouragement message
+## Author
 
-### Data Persistence
-
-The personal best score should persist across browser sessions using `localStorage`. When a user beats their high score, the new value should be saved and displayed on subsequent visits.
-
-### Want some support on the challenge? 
-
-[Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
-
-## Where to find everything
-
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design. 
-
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`. 
-
-If you would like the Figma design file to gain experience using professional tools and build more accurate projects faster, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
-
-All the required assets for this project are in the `/assets` folder. The images are already exported for the correct screen size and optimized.
-
-We also include variable and static font files for the required fonts for this project. You can choose to either link to Google Fonts or use the local font files to host the fonts yourself. Note that we've removed the static font files for the font weights that aren't needed for this project.
-
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
-
-## Building your project
-
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
-
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
-
-## Deploying your project
-
-As mentioned above, there are many ways to host your project for free. Our recommend hosts are:
-
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
-
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
-
-## Create a custom `README.md`
-
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
-
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
-
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
-
-## Submitting your solution
-
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
-
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
-
-## Sharing your solution
-
-There are multiple places you can share your solution:
-
-1. Share your solution page in the **#finished-projects** channel of our [community](https://www.frontendmentor.io/community). 
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
-
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback. 
-
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
-
-## Got feedback for us?
-
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
-
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
-
-**Have fun building!** 🚀
-
----
-
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
-
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Website - [growcoding.com](https://www.growcoding.com)
+- Frontend Mentor - [@nicco88](https://www.frontendmentor.io/profile/nicco88)
+- Linkedin - [linkedin.com/in/niccolo-perego](https://www.linkedin.com/in/niccolo-perego)
