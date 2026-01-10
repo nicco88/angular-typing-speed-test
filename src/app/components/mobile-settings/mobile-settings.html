@@ -27,7 +27,6 @@
       [attr.labelledby]="option.id + '-mobile'"
       type="radio"
       [attr.name]="id() + '-mobile'"
-      (change)="updateValue(option.value)"
       [value]="option.value"
       [checked]="value() === option.value"
       class="sr-only"
@@ -37,7 +36,8 @@
     <button
       [attr.id]="option.id + '-mobile'"
       class="group text-neutral-0 cursor-pointer inline-flex p-2.5 gap-3 items-center w-full hover:bg-neutral-700 focus:outline-none focus:bg-neutral-700"
-      (keydown.enter)="$event.stopPropagation(); updateValue(option.value)"
+      (keydown.enter)="updateValue(option.value)"
+      (click)="updateValue(option.value)"
     >
       <div
         aria-hidden
