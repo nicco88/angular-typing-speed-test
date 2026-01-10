@@ -32,81 +32,20 @@
       <!-- Mobile settings wrapper -->
       <div class="grid grid-cols-2 md:hidden gap-x-2.5">
         <!-- Mobile difficulty settings -->
-        <button
-          data-tstSettingsOption
-          [active]="false"
-          type="button"
-          popovertarget="difficulty-popover"
-        >
-          {{ difficultyLabel() }}
-
-          <img
-            src="/images/icon-down-arrow.svg"
-            alt=""
-            aria-hidden="true"
-            class="transition-all duration-300"
-            [class.rotate-180]="difficultyPopoverOpen()"
-          />
-        </button>
-
-        <div
-          id="difficulty-popover"
-          class="settings-popover bg-transparent open:grid rounded-lg"
-          popover
-          (toggle)="onDifficultyPopoverToggle($event)"
-        >
-          @for(option of difficultyOptions; track option.id) {
-          <div class="bg-neutral-800 p-2.5 border-b last:border-b-0 border-neutral-700">
-            <input
-              [attr.id]="option.id + '-mobile'"
-              type="radio"
-              name="difficulty-mobile"
-              [(ngModel)]="difficulty"
-              [value]="option.value"
-            />
-
-            <label [attr.for]="option.id + '-mobile'" class="text-neutral-0 cursor-pointer">
-              {{ option.label }}
-            </label>
-          </div>
-          }
-        </div>
+        <tst-mobile-settings
+          [label]="difficultyLabel()"
+          [options]="difficultyOptions"
+          [(value)]="difficulty"
+          [id]="'difficulty'"
+        />
 
         <!-- Mobile mode settings -->
-        <button data-tstSettingsOption [active]="false" type="button" popovertarget="mode-popover">
-          {{ modeLabel() }}
-
-          <img
-            src="/images/icon-down-arrow.svg"
-            alt=""
-            aria-hidden="true"
-            class="transition-all duration-300"
-            [class.rotate-180]="modePopoverOpen()"
-          />
-        </button>
-
-        <div
-          id="mode-popover"
-          class="settings-popover bg-transparent open:grid rounded-lg"
-          popover
-          (toggle)="onModePopoverToggle($event)"
-        >
-          @for(option of modeOptions; track option.id) {
-          <div class="bg-neutral-800 p-2.5 border-b last:border-b-0 border-neutral-700">
-            <input
-              [attr.id]="option.id + '-mobile'"
-              type="radio"
-              name="mode-mobile"
-              [(ngModel)]="mode"
-              [value]="option.value"
-            />
-
-            <label [attr.for]="option.id + '-mobile'" class="text-neutral-0 cursor-pointer">
-              {{ option.label }}
-            </label>
-          </div>
-          }
-        </div>
+        <tst-mobile-settings
+          [label]="modeLabel()"
+          [options]="modeOptions"
+          [(value)]="mode"
+          [id]="'mode'"
+        />
       </div>
 
       <!-- Desktop difficutly settings -->

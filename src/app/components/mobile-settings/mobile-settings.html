@@ -1,0 +1,52 @@
+<button
+  data-tstSettingsOption
+  [active]="false"
+  type="button"
+  [attr.popovertarget]="id() + '-popover'"
+>
+  {{ label() }}
+
+  <img
+    src="/images/icon-down-arrow.svg"
+    alt=""
+    aria-hidden="true"
+    class="transition-all duration-300"
+    [class.rotate-180]="popoverOpen()"
+  />
+</button>
+
+<div
+  id="{{ id() }}-popover"
+  class="settings-popover bg-transparent open:grid rounded-lg"
+  popover
+  (toggle)="onPopoverToggle($event)"
+>
+  @for(option of options(); track option.id) {
+  <div class="bg-neutral-800 border-b last:border-b-0 border-neutral-700">
+    <input
+      [attr.labelledby]="option.id + '-mobile'"
+      type="radio"
+      [attr.name]="id() + '-mobile'"
+      (change)="updateValue(option.value)"
+      [value]="option.value"
+      [checked]="value() === option.value"
+      class="sr-only"
+      tabindex="-1"
+    />
+
+    <button
+      [attr.id]="option.id + '-mobile'"
+      class="group text-neutral-0 cursor-pointer inline-flex p-2.5 gap-3 items-center w-full hover:bg-neutral-700 focus:outline-none focus:bg-neutral-700"
+      (keydown.enter)="$event.stopPropagation(); updateValue(option.value)"
+    >
+      <div
+        aria-hidden
+        class="rounded-full w-4 h-4 transition-all duration-300 group-focus:outline-2 group-focus:outline-blue-400 group-focus:outline-offset-2"
+        [class]="value() === option.value ? 'border-4 border-blue-400' : 'border border-neutral-0'"
+      ></div>
+
+      {{ option.label }}
+    </button>
+  </div>
+  }
+</div>

@@ -8,11 +8,6 @@
   inset: 0;
 }
 
-.settings-popover {
-  position-area: bottom;
-  top: 0.5rem;
-}
-
 .wrong-character::after {
   content: "";
   position: absolute;

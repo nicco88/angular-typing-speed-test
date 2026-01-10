@@ -1,0 +1,8 @@
+:host {
+  display: grid;
+}
+
+.settings-popover {
+  position-area: bottom;
+  top: 0.5rem;
+}

@@ -10,13 +10,18 @@ export interface CharState {
   historicalError: boolean;
 }
 
-export interface DifficultyOption {
+export interface BaseOption {
+  label: string;
+  value: string;
+  id: string;
+}
+export interface DifficultyOption extends BaseOption {
   label: "Easy" | "Medium" | "Hard";
   value: Difficulty;
   id: Difficulty;
 }
 
-export interface ModeOption {
+export interface ModeOption extends BaseOption {
   label: "Timed (60s)" | "Passage";
   value: Mode;
   id: "timed" | "passage";

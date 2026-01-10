@@ -5,6 +5,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, distinctUntilChanged, filter, fromEvent, Subject, takeUntil, tap, withLatestFrom } from "rxjs";
 import { MetricsData } from '../../components/metrics-data/metrics-data';
+import { MobileSettings } from '../../components/mobile-settings/mobile-settings';
 import { Button } from '../../directives/button';
 import { SettingsOption } from '../../directives/settings-option';
 import { CharState, Difficulty, DifficultyOption, Mode, ModeOption } from '../../models/typing-speed.models';
@@ -15,7 +16,7 @@ import { difficultyOptions, modeOptions } from './home.config';
 
 @Component({
   selector: 'tst-home',
-  imports: [FormsModule, AsyncPipe, MetricsData, SettingsOption, Button, NgTemplateOutlet],
+  imports: [FormsModule, AsyncPipe, MetricsData, SettingsOption, Button, NgTemplateOutlet, MobileSettings],
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -51,9 +52,6 @@ export class Home implements AfterViewInit, OnDestroy {
   difficultyLabel = signal<DifficultyOption["label"]>("Easy");
   modeLabel = signal<ModeOption["label"]>("Timed (60s)");
 
-  difficultyPopoverOpen = signal(false);
-  modePopoverOpen = signal(false);
-
   ngAfterViewInit(): void {
     this.#subscribeSettingsFormValueChanges();
     this.#subscribeDocumentKeydown();
@@ -78,14 +76,6 @@ export class Home implements AfterViewInit, OnDestroy {
     this.#typingSpeedService.updateTestStarted(false);
     this.#typingSpeedService.updateWpm(0);
     this.#startTime = null;
-  }
-
-  onDifficultyPopoverToggle(e: ToggleEvent) {
-    this.difficultyPopoverOpen.set(e.newState === "open");
-  }
-
-  onModePopoverToggle(e: ToggleEvent) {
-    this.modePopoverOpen.set(e.newState === "open");
   }
 
   #subscribeSettingsFormValueChanges(): void {
