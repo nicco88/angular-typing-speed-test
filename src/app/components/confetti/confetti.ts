@@ -17,8 +17,8 @@ export class Confetti implements AfterViewInit {
 
     const paths = this.svgRef.nativeElement.querySelectorAll('path');
 
-    paths.forEach((path: SVGElement) => {
-      if (path.closest('clipPath')) return;
+    paths.forEach((path: HTMLElement) => {
+      if (path.closest('clipPath') || path.closest('defs')) return;
 
       const duration = Math.random() * 2 + 4 + 's';
       const delay = Math.random() * -10 + 's';

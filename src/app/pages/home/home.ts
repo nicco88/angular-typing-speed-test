@@ -4,20 +4,19 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, distinctUntilChanged, filter, fromEvent, Subject, takeUntil, tap, withLatestFrom } from "rxjs";
+import { DesktopSettings } from "../../components/desktop-settings/desktop-settings";
 import { MetricsData } from '../../components/metrics-data/metrics-data';
 import { MobileSettings } from '../../components/mobile-settings/mobile-settings';
 import { Button } from '../../directives/button';
-import { SettingsOption } from '../../directives/settings-option';
 import { CharState, Difficulty, DifficultyOption, Mode, ModeOption } from '../../models/typing-speed.models';
 import { TypingSpeedService } from '../../services/typing-speed.service';
 import { UtilsService } from '../../services/utils.service';
 import data from "./../../data.json";
 import { difficultyOptions, modeOptions } from './home.config';
-import { DesktopSettings } from "../../components/desktop-settings/desktop-settings";
 
 @Component({
   selector: 'tst-home',
-  imports: [FormsModule, AsyncPipe, MetricsData, SettingsOption, Button, NgTemplateOutlet, MobileSettings, DesktopSettings],
+  imports: [FormsModule, AsyncPipe, MetricsData, Button, NgTemplateOutlet, MobileSettings, DesktopSettings],
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -142,6 +141,7 @@ export class Home implements AfterViewInit, OnDestroy {
 
         this.#router.navigateByUrl("/result", { state: { isFirstTime, isPersonalBest, finished: true } });
       };
+      
       if (isBackspace) return this.cursorPosition$.next(Math.max(cursorPosition - 1, 0));
 
       if (this.#startTime === null) {
