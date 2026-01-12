@@ -26,9 +26,6 @@ importers:
       '@angular/router':
         specifier: ^21.0.0
         version: 21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(rxjs@7.8.2)
-      '@vitest/coverage-v8':
-        specifier: ^4.0.16
-        version: 4.0.16(vitest@4.0.16(jiti@2.6.1)(jsdom@27.4.0)(lightningcss@1.30.2)(sass@1.93.2))
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
@@ -48,6 +45,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.1.12
         version: 4.1.18
+      '@vitest/coverage-v8':
+        specifier: ^4.0.16
+        version: 4.0.16(vitest@4.0.16(jiti@2.6.1)(jsdom@27.4.0)(lightningcss@1.30.2)(sass@1.93.2))
       jsdom:
         specifier: ^27.1.0
         version: 27.4.0
