@@ -37,7 +37,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: TODO
+- Solution URL: [Frontend Mentor Solution](https://www.frontendmentor.io/solutions/typing-speed-test-with-angular-21-mqav3GG6xZ)
 - Live Site URL: [Netlify](https://angular-typing-speed-test.netlify.app/)
 
 ## My Process
