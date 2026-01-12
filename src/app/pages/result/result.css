@@ -12,20 +12,25 @@
   background-color: var(--color-green-500);
   border-radius: 50%;
   z-index: -1;
-  animation: 4s ease-in-out infinite lightpulse;
   transform-origin: center;
 }
 
-.star-1 {
-  animation: 15s ease-in infinite star-1-pulse;
-}
+@media (prefers-reduced-motion: no-preference) {
+  .icon-completed::before {
+    animation: 4s ease-in-out infinite lightpulse;
+  }
 
-.star-2 {
-  animation: 20s ease-in-out infinite star-2-pulse;
-}
+  .star-1 {
+    animation: 15s ease-in infinite star-1-pulse;
+  }
 
-.tada {
-  animation: tada 1.2s ease-in-out;
+  .star-2 {
+    animation: 20s ease-in-out infinite star-2-pulse;
+  }
+
+  .tada {
+    animation: tada 1.2s ease-in-out;
+  }
 }
 
 @keyframes lightpulse {
@@ -89,11 +94,25 @@
 }
 
 @keyframes tada {
-  0% { transform: scale(1); }
-  10%, 20% { transform: scale(0.9) rotate(-3deg); }
-  30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); }
-  40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); }
-  100% { transform: scale(1) rotate(0); }
+  0% {
+    transform: scale(1);
+  }
+  10%,
+  20% {
+    transform: scale(0.9) rotate(-3deg);
+  }
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale(1.1) rotate(3deg);
+  }
+  40%,
+  60%,
+  80% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
 }
-
-

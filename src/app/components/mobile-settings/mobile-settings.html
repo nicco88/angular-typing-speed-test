@@ -35,6 +35,7 @@
 
     <button
       [attr.id]="option.id + '-mobile'"
+      type="button"
       class="group text-neutral-0 cursor-pointer inline-flex p-2.5 gap-3 items-center w-full hover:bg-neutral-700 focus:outline-none focus:bg-neutral-700"
       (keydown.enter)="updateValue(option.value)"
       (click)="updateValue(option.value)"

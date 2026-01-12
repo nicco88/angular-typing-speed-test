@@ -52,7 +52,7 @@ body {
   justify-content: space-between;
   row-gap: 3rem;
 
-  @media (min-width: 375px) {
+  @media (min-width: 23.4375rem) {
     padding: 2rem;
   }
 }
