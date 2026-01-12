@@ -75,3 +75,15 @@ body {
     opacity: 0;
   }
 }
+
+.wpm-transition {
+  view-transition-name: wpm;
+}
+
+.accuracy-transition {
+  view-transition-name: accuracy;
+}
+
+.characters-transition {
+  view-transition-name: characters;
+}

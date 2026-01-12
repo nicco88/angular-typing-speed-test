@@ -29,11 +29,11 @@
 
   <!-- Result metrics -->
   <dl class="text-left flex flex-col md:flex-row gap-4 md:justify-between mb-10">
-    <tst-result-metrics-wrapper title="WPM" class="md:flex-1">
+    <tst-result-metrics-wrapper title="WPM" class="wpm-transition md:flex-1">
       <dd class="text-2xl font-bold">{{ wpm() }}</dd>
     </tst-result-metrics-wrapper>
 
-    <tst-result-metrics-wrapper title="Accuracy" class="md:flex-1">
+    <tst-result-metrics-wrapper title="Accuracy" class="accuracy-transition md:flex-1">
       <dd
         class="text-2xl font-bold"
         [class.text-green-500]="accuracy() === 100"
@@ -43,7 +43,7 @@
       </dd>
     </tst-result-metrics-wrapper>
 
-    <tst-result-metrics-wrapper title="Characters" class="md:flex-1">
+    <tst-result-metrics-wrapper title="Characters" class="characters-transition md:flex-1">
       <dd class="text-2xl font-bold">
         <span class="text-green-500">{{ rightVsWrongChars()?.correctChars }}</span> /
         <span class="text-red-500">{{ rightVsWrongChars()?.wrongChars }}</span>

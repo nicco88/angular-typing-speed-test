@@ -4,13 +4,17 @@
       class="flex justify-center md:justify-start md:max-w-121.25 mb-4 gap-x-5 md:gap-x-4 md:mb-5 lg:items-center lg:mb-0"
     >
       <!-- WPM -->
-      <tst-metrics-data class="flex-1 md:flex-none" dataTitle="WPM" dataValue="{{ wpm() }}" />
+      <tst-metrics-data
+        class="wpm-transition flex-1 md:flex-none"
+        dataTitle="WPM"
+        dataValue="{{ wpm() }}"
+      />
 
       <ng-container [ngTemplateOutlet]="verticalSeparator" />
 
       <!-- Accuracy -->
       <tst-metrics-data
-        class="flex-1 md:flex-none"
+        class="accuracy-transition flex-1 md:flex-none"
         dataTitle="Accuracy"
         dataValue="{{ accuracy() }}%"
         [dataIsRed]="accuracy() !== 100 && accuracy() !== 0"
@@ -76,7 +80,7 @@
 
   <!-- Test text section -->
   <div class="relative mb-14 md:mb-24">
-    <div class="text-[2rem]/[136%] sm:text-[2.5rem]/[136%]">
+    <div class="characters-transition text-[2rem]/[136%] sm:text-[2.5rem]/[136%]">
       @for(char of testText$ | async; track $index; let i = $index) {
       <span
         class="rounded-sm px-px relative"
