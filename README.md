@@ -10,7 +10,7 @@ This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
     - [The Challenge](#the-challenge)
-    - [Links (TODO)](#links-todo)
+    - [Links](#links)
   - [My Process](#my-process)
     - [Built With](#built-with)
     - [Features](#features)
@@ -35,10 +35,10 @@ Users should be able to:
 - See a "High Score" celebration when beating a personal best (persisted via localStorage).
 - View an optimal layout on different screen sizes.
 
-### Links (TODO)
+### Links
 
-- Solution URL:
-- Live Site URL:
+- Solution URL: TODO
+- Live Site URL: [Netlify](https://angular-typing-speed-test.netlify.app/)
 
 ## My Process
 
